@@ -1,9 +1,21 @@
 import { SoftError } from './error';
 import logger, { Status } from './logger';
+import { isInDev } from '../config';
 
 export { promisifyAll, formattedNow } from './utils';
 export { SoftError, HardError, Status } from './error';
 export { logRequest, logger } from './logger';
+
+export async function catchError(ctx, next) {
+  try {
+    await next();
+  } catch (e) {
+    if (e instanceof SoftError) {
+      return sendData(ctx, e);
+    }
+    return handleError(ctx, e);
+  }
+}
 
 /**
  * @description 发送非服务器内部错误
@@ -34,6 +46,7 @@ export async function sendData(ctx, data = {}, status = 'OK', msg = 'Success', c
   };
 }
 
+const defaultErrMsg = '严重！未知内部错误！';
 /**
  * @description 处理服务器内部错误
  *
@@ -46,22 +59,20 @@ export async function sendData(ctx, data = {}, status = 'OK', msg = 'Success', c
  * @author 陈序
  */
 export async function handleError(ctx, e) {
-  const stack = e.stack || null;
-  const defaultMsg = '未知内部错误';
   const {
-    code = 500,
-    status = Status.INTERNAL_ERROR,
-    msg = defaultMsg,
-  } = e.info || {};
+    info: {
+      code = 500,
+      status = Status.INTERNAL_ERROR,
+      msg = defaultErrMsg,
+    } = {},
+    stack,
+  } = e;
   ctx.status = code;
   ctx.body = {
     status,
     msg,
+    stack,
     time: new Date(),
   };
-  logger.error(`${ctx.url}(${ctx.method}) Error Occur:
-  status: ${status}
-  msg: ${msg}
-  stack:
-${stack}`);
+  logger.error(`Error Occur:\nstatus: ${status}\nmsg: ${msg}\nstack: ${stack}`);
 }

@@ -1,13 +1,17 @@
-import Koa from 'koa'
-const { port } = require('./config')
-const { handleError, requestLogger, handleException } = require('./utils')
-const initRouter = require('./routers')
-const app = new Koa()
-app.use(requestLogger).use(handleException)
-initRouter(app)
+import Koa from 'koa';
+
+import route from './routers';
+import { port } from './config';
+import * as utils from './utils';
+
+const app = new Koa();
+app.use(
+  utils.catchError,
+  utils.logRequest,
+);
 
 app.on('error', (err, ctx) => {
-  handleError(ctx, err)
-})
+  utils.handleError(ctx, err);
+});
 
-export default app
+export default app;
