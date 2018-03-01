@@ -4,7 +4,7 @@ import { isInDev } from '../config';
 
 export { promisifyAll, formattedNow } from './utils';
 export { SoftError, HardError, Status } from './error';
-export { logRequest, logger } from './logger';
+export { logRequest, default as logger } from './logger';
 
 export async function catchError(ctx, next) {
   try {

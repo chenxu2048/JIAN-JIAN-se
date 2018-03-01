@@ -9,6 +9,8 @@ export const isInDev = NODE_ENV === 'development';
 export const mysql = config.mysql;
 export const redis = config.redis;
 export const port = config.port;
+
+export const host = config.host || '127.0.0.1';
 export const session = config.session;
 export const wechat = config.wechatAuth;
 

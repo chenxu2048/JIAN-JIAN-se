@@ -2,7 +2,6 @@ import bodyParser from 'koa-bodyparser';
 import Router from 'koa-express-router';
 
 import * as RedisServ from '../services/redis';
-import * as AuthServ from '../services/auth';
 import { SoftError, Status } from '../utils';
 
 /**
@@ -19,8 +18,10 @@ export default function route(app) {
     session,
     bodyparser,
     initParam,
-    AuthServ.block,
+    checkIsInWhiteList,
+    blockUnauthorized,
   );
+  app.use(root.routes());
 }
 
 function getBodyParser() {
@@ -51,4 +52,41 @@ async function initParam(ctx, next) {
     host: ctx.host,
   };
   return next();
+}
+
+// 无需登录即可访问的 API
+const whiteList = [
+];
+
+/**
+ * 检查当前路径是否可以不检查登录
+ * @param {Context} ctx
+ * @param {{(): Promise<any>}} next
+ */
+async function checkIsInWhiteList(ctx, next) {
+  ctx.paramData.inWhiteList = whiteList.some(onePath => ctx.originalUrl.startsWith(onePath));
+  return next();
+}
+
+/**
+ * 限制未登录请求
+ * @param {Context} ctx
+ * @param {()=>Promise<void>} next
+ */
+export async function blockUnauthorized(ctx, next) {
+  const { user } = ctx.session;
+  const { inWhiteList } = ctx.paramData;
+  if (inWhiteList || user) {
+    return next();
+  }
+  throw new SoftError(Status.NOT_AUTHORIZED, '未登录');
+}
+
+/**
+ * 重定向
+ * @param {Context} ctx
+ * @param {()=>Promise<void>} next
+ */
+export function redirect(ctx, next) {
+
 }

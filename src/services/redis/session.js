@@ -1,7 +1,7 @@
 import KoaRedis from 'koa-redis';
 import session from 'koa-session';
 import compose from 'koa-compose';
-import manager from './Manager';
+import { manager } from './Manager';
 import { session as sessionConfig, redis as redisConfig } from '../../config';
 
 const { namespaces: { session: namespace } } = redisConfig;
