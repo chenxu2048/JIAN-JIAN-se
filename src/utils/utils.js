@@ -25,3 +25,9 @@ export function promisifyAll(obj, suffix = 'Async') {
   }
   return obj;
 }
+
+/**
+ * 通过豆瓣API根据图书的ISBN码获得图书信息
+ * @param {string} isbn
+ * @return {Obj}
+ */
