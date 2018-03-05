@@ -212,6 +212,18 @@
             "description" : "非法请求"
           }
         }
+      },
+      "put" : {
+        "tags" : ["users"],
+        "summary" : "用于点赞对应的句子",
+        "description" : "用于点赞对应的句子",
+        "parameters" : [{
+          "in" : "body",
+          "name" : "whetherZan",
+          "description" : "0 - 取消赞  1 - 赞",
+          "required" : true,
+          "type" : false
+        }]
       }
     },
     "/book_info:{isbn}":{
