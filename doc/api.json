@@ -88,8 +88,8 @@
       },
       "delete" : {
         "tags" : [ "users" ],
-        "summary" : "删除一本书，并且删除该书的所有书评",
-        "description" : "删除一本书，并且删除该书的所有书评",
+        "summary" : "删除一本书，并且删除该书的所有书摘",
+        "description" : "删除一本书，并且删除该书的所有书摘1",
         "operationId" : "delete a book",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
@@ -115,8 +115,8 @@
     "/sentence" : {
       "get" : {
         "tags" : [ "users" ],
-        "summary" : "获取某一本书的所有书评",
-        "description" : "获取某一本书的所有书评",
+        "summary" : "获取某一本书的所有书摘",
+        "description" : "获取某一本书的所有书摘",
         "operationId" : "get list of sentences",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -146,8 +146,8 @@
       },
       "post" : {
         "tags" : [ "users" ],
-        "summary" : "给某一用户的某一本书增加一书评",
-        "description" : "给某一用户的某一本书增加一书评",
+        "summary" : "给某一用户的某一本书增加一书摘",
+        "description" : "给某一用户的某一本书增加一书摘",
         "operationId" : "add sentence",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -166,7 +166,26 @@
         }
       }
     },
-    "/sentence/share" : {
+    "/square_sentences" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "获得广场上的书摘",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "成功",
+            "schema" : {
+              "$ref" : "#/definitions/SharedSentencesItem"
+            }
+          },
+          "400" : {
+            "description" : "失败"
+          },
+          "401" : {
+            "description" : "非法请求"
+          }
+        }
+      },
       "post" : {
         "tags" : [ "users" ],
         "summary" : "分享书摘",
@@ -195,23 +214,19 @@
         }
       }
     },
-    "/square/sentences" : {
+    "/book_info:{isbn}":{
       "get" : {
-        "tags" : [ "users" ],
-        "summary" : "获得广场上的书摘",
-        "parameters" : [ ],
+        "tags" : ["users"],
+        "summary" : "根据ISBN码获取书籍的相关信息， 此接口不需要登陆",
         "responses" : {
           "200" : {
             "description" : "成功",
             "schema" : {
-              "$ref" : "#/definitions/SharedSentencesItem"
+              "$ref" : "#/definitions/book_info"
             }
           },
           "400" : {
-            "description" : "失败"
-          },
-          "401" : {
-            "description" : "非法请求"
+            "description" : "对不起，找不到此书"
           }
         }
       }
@@ -234,6 +249,11 @@
           "type" : "string",
           "example" : "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2095073156,2011499721&fm=27&gp=0.jpg",
           "description" : "the Image URL"
+        },
+        "sample_sentences" : {
+          "type" : "array",
+          "example" : "['dfsdf', 'sdfsdfsdf', 'sdfsdf']",
+          "description" : "每本书的前几条书摘"
         }
       },
       "example" : {
@@ -320,6 +340,24 @@
         },
         "sharer_id" : "...?",
         "share_comment" : "这是我喜欢的句子"
+      }
+    },
+    "book_info" : {
+      "type" : "object",
+      "required" : ["title", "isbn", "title_page_url"],
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "example" : "Computer NetWorking(Fourth Edition)"
+        },
+        "isbn" : {
+          "type" : "string",
+          "example" : "97809781"
+        },
+        "title_page_url" : {
+          "type" : "string",
+          "example" : "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2095073156,2011499721&fm=27&gp=0.jpg"
+        }
       }
     }
   }
