@@ -9,7 +9,6 @@ import { sendData } from '../utils';
 export async function resolveISBN(ISBN) {
     try {
       const response = await got(`https://api.douban.com/v2/book/isbn/${ISBN}`, {json : true});
-      console.log(response.body);
       return {
         title : response.body.subtitle,
         isbn : response.body.isbn13,
