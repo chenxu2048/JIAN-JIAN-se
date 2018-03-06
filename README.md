@@ -37,9 +37,9 @@ async function isLogin(ctx, next) {
   ]
 }
 ```
-同时安装``nodemen``，这个已经在``dev``依赖中了
+同时安装``nodemon``，这个已经在``dev``依赖中了
 > npm install --only=dev
-通过``npm``启动``nodemen``
+通过``npm``启动``nodemon``
 > npm run dev
-然后``vscode``开启名为``Attach to Port``的调试，连接到``nodemen``
+然后``vscode``开启名为``Attach to Port``的调试，连接到``nodemon``
 

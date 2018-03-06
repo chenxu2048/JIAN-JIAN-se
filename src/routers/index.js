@@ -21,7 +21,7 @@ export default function route(app) {
     checkIsInWhiteList,
     blockUnauthorized,
   );
-  app.use(root.routes());
+  app.use(root.routes(false));
 }
 
 function getBodyParser() {
@@ -77,6 +77,7 @@ export async function blockUnauthorized(ctx, next) {
   const { user } = ctx.session;
   const { inWhiteList } = ctx.paramData;
   if (inWhiteList || user) {
+    ctx.paramData.curUser = user;
     return next();
   }
   throw new SoftError(Status.NOT_AUTHORIZED, '未登录');

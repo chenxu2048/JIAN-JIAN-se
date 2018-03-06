@@ -16,5 +16,6 @@ declare module 'koa' {
   interface Context {
     paramData: ParamData
     baseUrl: string
+    sessionOptions: KoaSession.SessionOptions
   }
 }

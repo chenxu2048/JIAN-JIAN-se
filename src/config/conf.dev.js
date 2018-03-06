@@ -5,7 +5,7 @@ export default {
     host: '119.29.146.176',
     user: 'jian_jian',
     password: 'jianjiandb',
-    database: 'dev',
+    database: 'JIAN-JIAN',
     port: '6033',
     charset: 'utf8mb4_general_ci',
   },

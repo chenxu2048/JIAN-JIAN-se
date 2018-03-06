@@ -2,9 +2,11 @@ import { formattedNow } from './utils';
 
 const logLevels = [
   'debug',
-  'info',
-  'warn',
   'error',
+  'info',
+  'log',
+  'trace',
+  'warn',
 ];
 
 const logger = getLogger();
@@ -37,14 +39,14 @@ export async function logRequest(ctx, next) {
   const extMsgText = extMsg && `- ${extMsg}` || '';
   const msgText = msg && `${msg}${extMsgText}` || '';
 
-  let logging = logger.info;
+  let level = 'info';
   const user = session.user || '未登录';
   if (statusNum >= 400 && statusNum < 400) {
-    logging = logger.warn;
+    level = 'warn';
   } else if (statusNum >= 500) {
-    logging = logger.error;
+    level = 'error';
   }
-  logging(`${formattedNow()} ${method} ${interval} ${urlText}${statusText} | ${user}: ${msgText}`);
+  logger[level](`${formattedNow()} ${method} ${interval} ${urlText}${statusText} | ${user}: ${msgText}`);
 }
 
 function getLogger() {
