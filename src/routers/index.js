@@ -4,7 +4,8 @@ import Router from 'koa-express-router';
 import * as RedisServ from '../services/redis';
 import { SoftError, Status, sendData } from '../utils';
 import {queryBookInfo} from '../controllers/bookInfo';
-
+import * as bookControllers from '../controllers/bookController';
+import * as sentenceControllers from '../controllers/sentenceController';
 /**
  * 导出根路由
  * @param {Koa} app
@@ -24,6 +25,15 @@ export default function route(app) {
   );
   root.route('/isbn')
       .get(queryBookInfo);
+  root.route('/books')
+      .get(bookControllers.getBooks)
+      .post(bookControllers.postBook)
+      .delete(bookControllers.deleteBook);
+  root.route('/sentence')
+      .get(sentenceControllers.getSentences)
+      .post(sentenceControllers.postSentence);
+  root.route('/square_sentences')
+      .get();
   app.use(root.routes(false));
 }
 

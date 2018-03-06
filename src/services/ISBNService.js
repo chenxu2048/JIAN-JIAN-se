@@ -1,5 +1,5 @@
 import got from 'got';
-import { sendData } from '../utils';
+import { sendData, SoftError, Status } from '../utils';
 
 /**
  * 将传入的ISBN码解析为书籍格式
@@ -15,6 +15,6 @@ export async function resolveISBN(ISBN) {
         title_page_url : response.body.images.large
       };
     } catch(err) {
-      return null;
+      throw SoftError(Status.NOT_FOUND, '未找到此书');
     }
 }

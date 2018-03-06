@@ -8,9 +8,6 @@ import { sendData } from '../utils';
  */
 export async function queryBookInfo(ctx, next) {
     const queryResult = await resolveISBN(ctx.paramData.query.isbn);
-    if (queryResult) {
-        sendData(ctx, queryResult);
-    } else {
-        sendData(ctx, null, "查询失败", "Fail", 404);
-    }
+    sendData(ctx, queryResult);
+    return next();
 }
