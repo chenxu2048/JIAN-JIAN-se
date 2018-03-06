@@ -34,6 +34,7 @@ export default function route(app) {
       .post(sentenceControllers.postSentence);
   root.route('/square_sentences')
       .get();
+
   app.use(root.routes(false));
 }
 
@@ -90,6 +91,7 @@ export async function blockUnauthorized(ctx, next) {
   const { user } = ctx.session;
   const { inWhiteList } = ctx.paramData;
   if (inWhiteList || user) {
+    ctx.paramData.curUser = user;
     return next();
   }
   throw new SoftError(Status.NOT_AUTHORIZED, '未登录');

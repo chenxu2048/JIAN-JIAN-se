@@ -1,5 +1,8 @@
 import moment from 'moment';
 import { promisify } from 'util';
+import _ from 'lodash';
+
+export const pick = _.pick;
 
 export function formattedNow() {
   return moment(new Date()).format('YYYY-MM-DD HH:mm:ss.SSS');

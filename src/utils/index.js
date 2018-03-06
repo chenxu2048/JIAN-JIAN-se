@@ -28,10 +28,10 @@ export async function catchError(ctx, next) {
  *
  * @author 陈序
  */
-export async function sendData(ctx, data = {}, status = 'OK', msg = 'Success', code = 200) {
+export async function sendData(ctx, data = {}, status = Status.OK, msg = 'Success', code = 200) {
   if (data instanceof SoftError) {
     ({
-      status: status = 'BAD_REQUEST',
+      status: status = Status.BAD_REQUEST,
       msg: msg = '请求非法',
       code: code = 400,
     } = data.ctx || {});
@@ -71,8 +71,10 @@ export async function handleError(ctx, e) {
   ctx.body = {
     status,
     msg,
-    stack,
     time: new Date(),
   };
+  if (isInDev) {
+    Object.assign(ctx.body, { stack });
+  }
   logger.error(`Error Occur:\nstatus: ${status}\nmsg: ${msg}\nstack: ${stack}`);
 }
