@@ -2,7 +2,8 @@ import bodyParser from 'koa-bodyparser';
 import Router from 'koa-express-router';
 
 import * as RedisServ from '../services/redis';
-import { SoftError, Status } from '../utils';
+import { SoftError, Status, sendData } from '../utils';
+import {queryBookInfo} from '../controllers/bookInfo';
 
 /**
  * 导出根路由
@@ -21,7 +22,9 @@ export default function route(app) {
     checkIsInWhiteList,
     blockUnauthorized,
   );
-  app.use(root.routes());
+  root.route('/isbn')
+      .get(queryBookInfo);
+  app.use(root.routes(false));
 }
 
 function getBodyParser() {
@@ -55,7 +58,7 @@ async function initParam(ctx, next) {
 }
 
 // 无需登录即可访问的 API
-const whiteList = [
+const whiteList = ['/api/isbn'
 ];
 
 /**

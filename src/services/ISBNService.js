@@ -1,0 +1,21 @@
+import got from 'got';
+import { sendData } from '../utils';
+
+/**
+ * 将传入的ISBN码解析为书籍格式
+ * @param {String} ISBN
+ * @author 吴博文
+ */
+export async function resolveISBN(ISBN) {
+    try {
+      const response = await got(`https://api.douban.com/v2/book/isbn/${ISBN}`, {json : true});
+      console.log(response.body);
+      return {
+        title : response.body.subtitle,
+        isbn : response.body.isbn13,
+        title_page_url : response.body.images.large
+      };
+    } catch(err) {
+      return null;
+    }
+}

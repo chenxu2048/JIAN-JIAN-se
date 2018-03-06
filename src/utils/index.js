@@ -1,5 +1,5 @@
-import { SoftError } from './error';
-import logger, { Status } from './logger';
+import { SoftError, Status } from './error';
+import logger from './logger';
 import { isInDev } from '../config';
 
 export { promisifyAll, formattedNow } from './utils';
