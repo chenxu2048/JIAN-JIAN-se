@@ -228,10 +228,14 @@ definitions:
   Sentence:
     type: object
     required:
+      - sentence_id
       - add_time
       - isbn
       - sentence
     properties:
+      sentence_id:
+        type: int32
+        example: 123456789
       isbn:
         type: string
         example: '97809781'
