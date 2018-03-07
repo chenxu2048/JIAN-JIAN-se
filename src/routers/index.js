@@ -6,6 +6,12 @@ import { SoftError, Status, sendData } from '../utils';
 import {queryBookInfo} from '../controllers/bookInfo';
 import * as bookControllers from '../controllers/bookController';
 import * as sentenceControllers from '../controllers/sentenceController';
+import * as squareSentenceControllers from '../controllers/squareSentenceController';
+import userRoute from './user';
+import bookInfoRoute from './bookInfo';
+import sentenceRoute from './sentence';
+import squareSentenceRoute from './squareSentence';
+import bookRoute from './book';
 /**
  * 导出根路由
  * @param {Koa} app
@@ -23,18 +29,18 @@ export default function route(app) {
     checkIsInWhiteList,
     blockUnauthorized,
   );
-  root.route('/isbn')
-      .get(queryBookInfo);
-  root.route('/books')
-      .get(bookControllers.getBooks)
-      .post(bookControllers.postBook)
-      .delete(bookControllers.deleteBook);
-  root.route('/sentence')
-      .get(sentenceControllers.getSentences)
-      .post(sentenceControllers.postSentence);
-  root.route('/square_sentences')
-      .get();
+  // 用户管理路由
+  root.use(userRoute);
+  // 图书管理路由
+  root.use(bookRoute);
+  // 书摘管理路由
+  root.use(sentenceRoute);
+  // 广场管理路由
+  root.use(squareSentenceRoute);
+  // 图书信息路由
+  root.use(bookInfoRoute);
 
+  
   app.use(root.routes(false));
 }
 
