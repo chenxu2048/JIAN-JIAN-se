@@ -23,7 +23,7 @@ export const pool = mysql.createPool(option);
  */
 export async function queryDb(sql, values = undefined, conn = pool) {
   try {
-    await conn.queryAsync(sql, values);
+    return await conn.queryAsync(sql, values);
   } catch (e) {
     throw new HardError(Status.INTERNAL_ERROR, '数据库查询出错', 500, e);
   }
