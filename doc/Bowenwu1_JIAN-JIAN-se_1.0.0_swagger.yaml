@@ -201,14 +201,19 @@ definitions:
   Book:
     type: object
     required:
-      - book_name
+      - title
       - isbn
+      - book_id
       - title_page_url
+      - sample_sentences
     properties:
       isbn:
         type: string
         example: '97809781'
-      book_name:
+      book_id:
+        type: int
+        example: 123456789
+      title:
         type: string
         example: Computer NetWorking(Fourth Edition)
       title_page_url:
@@ -224,7 +229,7 @@ definitions:
       title_page_url: >-
         https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2095073156,2011499721&fm=27&gp=0.jpg
       isbn: '97809781'
-      book_name: Computer NetWorking(Fourth Edition)
+      title: Computer NetWorking(Fourth Edition)
   Sentence:
     type: object
     required:

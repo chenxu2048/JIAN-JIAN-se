@@ -1,5 +1,5 @@
 import Router from 'koa-express-router';
-import * as sentenceCtrl from '../controllers/sentenceController'
+import * as sentenceCtrl from '../controllers/sentence';
 
 const router = new Router();
 export default router.routes();

@@ -3,10 +3,6 @@ import Router from 'koa-express-router';
 
 import * as RedisServ from '../services/redis';
 import { SoftError, Status, sendData } from '../utils';
-import {queryBookInfo} from '../controllers/bookInfo';
-import * as bookControllers from '../controllers/bookController';
-import * as sentenceControllers from '../controllers/sentenceController';
-import * as squareSentenceControllers from '../controllers/squareSentenceController';
 import userRoute from './user';
 import bookInfoRoute from './bookInfo';
 import sentenceRoute from './sentence';
@@ -75,7 +71,7 @@ async function initParam(ctx, next) {
 }
 
 // 无需登录即可访问的 API
-const whiteList = ['/api/isbn'
+const whiteList = ['/api/isbn', '/api/user/login'
 ];
 
 /**

@@ -21,9 +21,9 @@ export async function retrieveUserByOpenId(open_id) {
 export async function createUser(open_id, nick_name, avator_url) {
   const sql = `
     INSERT INTO user
-      WHERE ?;
+      SET ?;
   `;
   await queryDb(sql, { open_id, nick_name, avator_url });
-  const [user] = retrieveUserByOpenId(open_id);
+  const [user] = await retrieveUserByOpenId(open_id);
   return user;
 }

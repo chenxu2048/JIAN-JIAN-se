@@ -12,9 +12,10 @@ export async function resolveISBN(ISBN) {
       return {
         title : response.body.subtitle,
         isbn : response.body.isbn13,
-        title_page_url : response.body.images.large
+        title_page_url : response.body.images.large,
+        author : (response.body.author)[0]
       };
     } catch(err) {
-      throw SoftError(Status.NOT_FOUND, '未找到此书');
+      throw new SoftError(Status.NOT_FOUND, '未找到此书');
     }
 }

@@ -8,9 +8,9 @@ import { resolveISBN } from "../services/ISBNService";
 export async function getBookInfo(ISBN) {
     // 在数据库中查找
     const sql = `
-        SELECT * from book_info;
+        SELECT * from book_info WHERE ?;
     `;
-    const result = await queryDb(sql, []);
+    const result = await queryDb(sql, {ISBN});
     console.log(result);
     // 如果没有，去豆瓣api获取
     if (result.length == 0) {
@@ -26,12 +26,33 @@ export async function getBookInfo(ISBN) {
  * 向书籍信息表中插入一条数据
  * @param {String(13)} ISBN 
  * @param {String} title 
- * @param {String} author 
+ * @param {String} author
  * @param {String} title_page_image 
+ * @author 吴博文
  */
 async function insertBookInfo(ISBN, title, author, title_page_image) {
     // const sql = `INSERT INTO book_info (isbn, title, author, title_page_image)
     //             VALUES ('?', '?', '?', '?');`;
     const sql = `INSERT INTO book_info SET ?;`;
     queryDb(sql, {ISBN, title, author, title_page_image});
+}
+
+/**
+ * 由于book表与book_info表之间的约束
+ * 插入书籍之前需要保证书籍信息存在于book_info中
+ * @param {String(13)} ISBN
+ * @author 吴博文
+ */
+export async function makeBookInfoExist(ISBN) {
+    // 在数据库中查找
+    const sql = `
+        SELECT * from book_info WHERE ?;
+    `;
+    const result = await queryDb(sql, {ISBN});
+    if (result.length == 0) {
+        const queryResult = await resolveISBN(ISBN);
+        // 返回结果，并将该条记录插入数据库
+        await insertBookInfo(queryResult.isbn, queryResult.title,
+                        queryResult.author, queryResult.title_page_url);
+    }
 }

@@ -78,3 +78,11 @@ export async function handleError(ctx, e) {
   }
   logger.error(`Error Occur:\nstatus: ${status}\nmsg: ${msg}\nstack: ${stack}`);
 }
+
+/**
+ * 获取用户ID
+ * @param {Context} ctx 
+ */
+export function getUserID(ctx) {
+  return ctx.session.user.user_id;
+}

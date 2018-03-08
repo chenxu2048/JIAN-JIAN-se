@@ -27,8 +27,8 @@ export default {
     overwrite: true,
   },
   wechatAuth: {
-    appId: 'app_id',
-    appSecret: 'app_secret',
+    appId: 'wx705b90272f798f75',
+    appSecret: '68c1f35441727f3480d2c163e84ec7a6',
     url: {
       getSession: 'https://api.weixin.qq.com/sns/jscode2session',
     },

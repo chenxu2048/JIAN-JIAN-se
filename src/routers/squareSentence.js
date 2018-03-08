@@ -1,5 +1,5 @@
 import Router from 'koa-express-router';
-import * as squareSenterceCtrl from '../controllers/squareSentenceController'
+import * as squareSenterceCtrl from '../controllers/squareSentence';
 
 const router = new Router();
 export default router.routes();

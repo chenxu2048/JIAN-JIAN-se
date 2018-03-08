@@ -1,5 +1,5 @@
 import Router from 'koa-express-router';
-import * as bookCtrl from '../controllers/bookController'
+import * as bookCtrl from '../controllers/book';
 
 const router = new Router();
 export default router.routes();
