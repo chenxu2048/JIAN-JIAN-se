@@ -71,7 +71,7 @@ async function initParam(ctx, next) {
 }
 
 // 无需登录即可访问的 API
-const whiteList = ['/api/isbn', '/api/user/login'
+const whiteList = ['/api/book_info', '/api/user/login'
 ];
 
 /**

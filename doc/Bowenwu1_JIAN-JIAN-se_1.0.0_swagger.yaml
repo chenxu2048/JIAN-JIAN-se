@@ -273,6 +273,7 @@ definitions:
     type: object
     required:
       - sentences
+      - sentence_num
       - share_comment
       - share_time
       - sharer_id
@@ -285,6 +286,9 @@ definitions:
           Sentence3: null
         items:
           $ref: '#/definitions/Sentence'
+        sentence_num:
+          type: int
+          example:2
       share_time:
         type: string
         example: '2018-02-28'
