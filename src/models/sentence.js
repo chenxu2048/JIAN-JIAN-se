@@ -30,15 +30,17 @@ export async function insertSentenceByISBN(ISBN, user_id, content) {
  * @param {int} num 获取书摘的最大数量，默认返回全部
  * @author 吴博文
  */
-export async function retriveSentencesByISBN(ISBN, user_id, num = 18446744073709551615) {
+export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
+    console.log(typeof num);    
     const sql = `
     SELECT sentence.content FROM
     book INNER JOIN sentence
     ON book.book_id = sentence.book_id
     WHERE book.isbn = ? AND book.user_id = ?
-    LIMIT ?;
+    LIMIT ${num};
     `;
-    const result = await queryDb(sql, [ISBN, user_id, num]);
+    console.log(sql);
+    const result = await queryDb(sql, [ISBN, user_id]);
     console.log(result);
     return result;
 }

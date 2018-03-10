@@ -21,7 +21,7 @@ export async function postBook(ctx, next) {
  */
 export async function getBooks(ctx, next) {
     // 获取书的列表
-    let book_list = retrieveBooks(ctx.paramData.query.isbn, getUserID(ctx));
+    let book_list = await retrieveBooks(getUserID(ctx));
     // 查询每本书前几条书摘
     for (var i = 0; i < book_list.length; ++i) {
         book_list[i].sample_sentence = await retriveSentencesByISBN(ctx.paramData.query.isbn, getUserID(ctx), 3);

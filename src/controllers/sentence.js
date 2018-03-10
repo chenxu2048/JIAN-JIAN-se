@@ -7,7 +7,7 @@ import { sendData, Status, getUserID } from '../utils';
  * @param {} next
  */
 export async function postSentence(ctx, next) {
-    await insertSentenceByISBN(ctx.paramData.body.isbn, getUserID(ctx), ctx.paramData.body.sentence);
+    await insertSentenceByISBN(ctx.paramData.query.isbn, getUserID(ctx), ctx.paramData.body.sentence);
     sendData(ctx, Status.OK);
 }
 
@@ -16,7 +16,7 @@ export async function postSentence(ctx, next) {
  * @param {Context} ctx
  */
 export async function getSentences(ctx, next) {
-    const result = await retriveSentencesByISBN(ctx.paramData.body.isbn, getUserID(ctx));
+    const result = await retriveSentencesByISBN(ctx.paramData.query.isbn, getUserID(ctx));
     console.log(result);
-    return result;
+    sendData(ctx, result);
 }
