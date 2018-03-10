@@ -1,4 +1,4 @@
-import { insertSquareSentences } from "../models/squareSentence";
+import { insertSquareSentences, getAllSquareSentences } from "../models/squareSentence";
 import { getUserID, sendData, Status } from "../utils";
 
 /**
@@ -6,6 +6,7 @@ import { getUserID, sendData, Status } from "../utils";
  * @param {Context} ctx
  */
 export async function getSquareSenteces(ctx) {
+    const result = await getAllSquareSentences();
     
 }
 
@@ -14,11 +15,8 @@ export async function getSquareSenteces(ctx) {
  * @param {Context} ctx
  */
 export async function postSquareSentences(ctx) {
-    await insertSquareSentences(getUserID(ctx), ctx.paramData.body.sentence_num,
-                                ctx.paramData.body.thoughts,
-                                ctx.paramData.body.sentence_id1,
-                                ctx.paramData.body.sentence_id2,
-                                ctx.paramData.body.sentence_id3);
+    await insertSquareSentences(getUserID(ctx), ctx.paramData.body.sentences.join('#')
+                                , ctx.paramData.body.thoughts);
     sendData(Status.OK, {});
 }
 
