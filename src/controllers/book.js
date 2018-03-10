@@ -24,7 +24,7 @@ export async function getBooks(ctx, next) {
     let book_list = await retrieveBooks(getUserID(ctx));
     // 查询每本书前几条书摘
     for (var i = 0; i < book_list.length; ++i) {
-        book_list[i].sample_sentence = await retriveSentencesByISBN(ctx.paramData.query.isbn, getUserID(ctx), 3);
+        book_list[i].sample_sentence = await retriveSentencesByISBN(book_list[i].isbn, getUserID(ctx), 3);
     }
     sendData(ctx, book_list);
 }
