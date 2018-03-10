@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`square` (
   `square_id` INT NOT NULL AUTO_INCREMENT,
   `author_user_id` INT NOT NULL,
   `sentence` TEXT(65536) NOT NULL,
-  ` thoughts` VARCHAR(150) NULL,
+  `thoughts` VARCHAR(150) NULL,
   `add_time` DATETIME NULL DEFAULT NOW(),
   PRIMARY KEY (`square_id`),
   INDEX `fk_square_user1_idx` (`author_user_id` ASC),

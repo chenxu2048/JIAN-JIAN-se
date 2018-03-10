@@ -7,7 +7,11 @@ import { getUserID, sendData, Status } from "../utils";
  */
 export async function getSquareSenteces(ctx) {
     const result = await getAllSquareSentences();
-    
+    for (let i = 0; i < result.length; ++i) {
+        result[i].sentences = result[i].sentence.split('#');
+        delete result[i].sentence;
+    }
+    sendData(ctx, result, Status.OK);
 }
 
 /**
@@ -17,7 +21,7 @@ export async function getSquareSenteces(ctx) {
 export async function postSquareSentences(ctx) {
     await insertSquareSentences(getUserID(ctx), ctx.paramData.body.sentences.join('#')
                                 , ctx.paramData.body.thoughts);
-    sendData(Status.OK, {});
+    sendData(ctx, {}, Status.OK);
 }
 
 /**
