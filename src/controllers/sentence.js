@@ -8,7 +8,7 @@ import { sendData, Status, getUserID } from '../utils';
  */
 export async function postSentence(ctx, next) {
     await insertSentenceByISBN(ctx.paramData.query.isbn, getUserID(ctx),
-                                ctx.paramData.body.sentence,
+                                ctx.paramData.body.content,
                                 ctx.paramData.body.thought);
     sendData(ctx, Status.OK);
 }
