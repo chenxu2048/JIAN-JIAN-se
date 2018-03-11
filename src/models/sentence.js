@@ -54,7 +54,7 @@ export async function insertSentenceByISBN(ISBN, user_id, content, thought) {
 export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
     console.log(typeof num);    
     const sql = `
-    SELECT sentence.content, sentence.thought FROM
+    SELECT sentence.content, sentence.thought, sentence.sentence_id FROM
     book INNER JOIN sentence
     ON book.book_id = sentence.book_id
     WHERE book.isbn = ? AND book.user_id = ?
