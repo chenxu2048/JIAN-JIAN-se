@@ -29,6 +29,8 @@ export async function getSentences(ctx, next) {
  */
 export async function deleteSentences(ctx) {
     // 删除句子，传入id和user_id
-    await removeSentence(ctx.paramData.body.sentence_id, getUserID(ctx));
+    for (let i = 0; i < ctx.paramData.body.sentence_id.length; ++i) {
+        await removeSentence(ctx.paramData.body.sentence_id[i], getUserID(ctx));
+    }
     sendData(ctx, {}, Status.OK);
 }
