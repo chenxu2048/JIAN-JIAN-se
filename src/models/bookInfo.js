@@ -49,15 +49,15 @@ async function insertBookInfo(ISBN, title, author, title_page_image) {
  * @param {String(13)} ISBN
  * @author 吴博文
  */
-export async function makeBookInfoExist(ISBN) {
+export async function makeBookInfoExist(isbn) {
     // 在数据库中查找
     const sql = `
         SELECT * from book_info WHERE ?;
     `;
-    const result = await queryDb(sql, {ISBN});
+    const result = await queryDb(sql, {isbn});
     console.log(`makeBookInfoExist${result}`);
     if (result.length == 0) {
-        const queryResult = await resolveISBN(ISBN);
+        const queryResult = await resolveISBN(isbn);
         if (queryResult === undefined) {
             throw new SoftError(Status.NOT_FOUND, `此本书不存在，请检查ISBN是否正确`, 404);
         }
