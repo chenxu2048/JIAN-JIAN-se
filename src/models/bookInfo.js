@@ -26,7 +26,7 @@ export async function getBookInfo(ISBN) {
  * @author 吴博文
  */
 async function getBookInfoFromDb(ISBN) {
-    return await queryDb(`SELECT * FROM book_info WHERE isbn='%{ISBN}';`, []);
+    return await queryDb(`SELECT * FROM book_info WHERE ?;`, {ISBN});
 }
 /**
  * 向书籍信息表中插入一条数据
