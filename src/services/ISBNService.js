@@ -13,7 +13,7 @@ export async function resolveISBN(ISBN) {
         title : response.body.title,
         isbn : response.body.isbn13,
         title_page_url : response.body.images.large,
-        author : (response.body.author)[0]
+        author : (response.body.author).join(";")
       };
     } catch(err) {
       throw new SoftError(Status.NOT_FOUND, '未找到此书');
