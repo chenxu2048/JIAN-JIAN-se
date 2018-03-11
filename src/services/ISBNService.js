@@ -10,7 +10,7 @@ export async function resolveISBN(ISBN) {
     try {
       const response = await got(`https://api.douban.com/v2/book/isbn/${ISBN}`, {json : true});
       return {
-        title : response.body.subtitle,
+        title : response.body.title,
         isbn : response.body.isbn13,
         title_page_url : response.body.images.large,
         author : (response.body.author)[0]
