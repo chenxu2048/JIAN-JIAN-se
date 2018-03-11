@@ -65,3 +65,20 @@ export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
     console.log(result);
     return result;
 }
+
+/**
+ * 删除属于某个用户的句子，如果此句子不属于特定的用户，
+ * 则没有任何操作
+ * @param {int} sentence_id 句子唯一标示
+ * @param {int} user_id 用户唯一标示
+ */
+export async function removeSentence(sentence_id, user_id) {
+    const sql = `
+    DELETE sentence
+    FROM sentence INNER JOIN book ON
+    book.book_id = sentence.book_id
+    WHERE sentence.sentence_id = ?
+    AND book.user_id = ?;
+    `;
+    return await queryDb(sql, [sentence_id, user_id]);
+}

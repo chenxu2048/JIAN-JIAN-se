@@ -1,4 +1,4 @@
-import {insertSentenceByISBN, retriveSentencesByISBN} from '../models/sentence';
+import {insertSentenceByISBN, retriveSentencesByISBN, removeSentence} from '../models/sentence';
 import { sendData, Status, getUserID } from '../utils';
 
 /**
@@ -21,4 +21,14 @@ export async function getSentences(ctx, next) {
     const result = await retriveSentencesByISBN(ctx.paramData.query.isbn, getUserID(ctx));
     console.log(result);
     sendData(ctx, result);
+}
+
+/**
+ * 删除某条句子
+ * @param {Context} ctx
+ */
+export async function deleteSentences(ctx) {
+    // 删除句子，传入id和user_id
+    await removeSentence(ctx.paramData.body.sentence_id, getUserID(ctx));
+    sendData(ctx, {}, Status.OK);
 }
