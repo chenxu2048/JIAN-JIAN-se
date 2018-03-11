@@ -6,4 +6,5 @@ export default router.routes();
 
 router.route('/sentence')
       .get(sentenceCtrl.getSentences)
-      .post(sentenceCtrl.postSentence);
+      .post(sentenceCtrl.postSentence)
+      .delete(sentenceCtrl.deleteSentences);
