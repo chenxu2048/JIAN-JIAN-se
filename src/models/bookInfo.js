@@ -14,7 +14,7 @@ export async function getBookInfo(ISBN) {
     if (result.length == 0) {
         const queryResult = await resolveISBN(ISBN);
         // 返回结果，并将该条记录插入数据库，此处不需要await
-        insertBookInfo(queryResult.isbn, queryResult.title,
+        await insertBookInfo(queryResult.isbn, queryResult.title,
                         queryResult.author, queryResult.title_page_url);
         return queryResult;
     }
