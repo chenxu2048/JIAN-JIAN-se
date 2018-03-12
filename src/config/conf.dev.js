@@ -33,4 +33,12 @@ export default {
       getSession: 'https://api.weixin.qq.com/sns/jscode2session',
     },
   },
+  youdaoOCRAuth : {
+    appId: '1315f90b1965ea70',
+    appSecret: 'DQNKB7LuQemUWjN3ulj1nYGu5JPvi8g8',
+    url : {
+      http : 'http://openapi.youdao.com/ocrapi',
+      https: 'https://openapi.youdao.com/ocrapi'
+    }
+  }
 };

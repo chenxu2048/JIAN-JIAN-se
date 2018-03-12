@@ -8,6 +8,7 @@ import bookInfoRoute from './bookInfo';
 import sentenceRoute from './sentence';
 import squareSentenceRoute from './squareSentence';
 import bookRoute from './book';
+import OCRRoute from './OCR';
 /**
  * 导出根路由
  * @param {Koa} app
@@ -35,7 +36,8 @@ export default function route(app) {
   root.use(squareSentenceRoute);
   // 图书信息路由
   root.use(bookInfoRoute);
-
+  // OCR路由
+  root.use(OCRRoute);
   
   app.use(root.routes(false));
 }
@@ -71,7 +73,7 @@ async function initParam(ctx, next) {
 }
 
 // 无需登录即可访问的 API
-const whiteList = ['/api/book_info', '/api/user/login'
+const whiteList = ['/api/book_info', '/api/user/login', '/api/OCR'
 ];
 
 /**

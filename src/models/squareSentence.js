@@ -71,4 +71,3 @@ export async function insertCommentBySquareId(square_id, content, user_id) {
     `;
     await queryDb(sql, [square_id, content, user_id]);
 }
-
