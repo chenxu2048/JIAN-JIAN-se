@@ -20,7 +20,7 @@ export async function getSquareSenteces(ctx) {
  */
 export async function postSquareSentences(ctx) {
     await insertSquareSentences(getUserID(ctx), ctx.paramData.body.sentences.join('#')
-                                , ctx.paramData.body.thoughts);
+                                , ctx.paramData.body.thoughts, ctx.paramData.body.isbn);
     sendData(ctx, {}, Status.OK);
 }
 

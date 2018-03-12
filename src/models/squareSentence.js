@@ -5,9 +5,10 @@ import { queryDb } from "../services/mysql";
  * @param {int} author_id 作者唯一标示
  * @param {Text(65536)} sentences 很多句子使用某个分隔符分开
  * @param {String(150)} thought 分享时的想法
+ * @param {String(13)} isbn 书的唯一标示
  * @author 吴博文
  */
-export async function insertSquareSentences(author_id, sentences, thoughts) {
+export async function insertSquareSentences(author_id, sentences, thoughts, isbn) {
     // const sql = `
     //     INSERT INTO square
     //     (author_user_id, sentence_id1, sentence_id2, sentence_id3, sentence_num,
@@ -16,8 +17,8 @@ export async function insertSquareSentences(author_id, sentences, thoughts) {
     // `;
     const sql = `
         INSERT INTO square
-        (author_user_id, sentence, thoughts)
-        VALUES(${author_id}, "${sentences}", "${thoughts}");
+        (author_user_id, sentence, thoughts, isbn)
+        VALUES(${author_id}, "${sentences}", "${thoughts}", "${isbn}");
     `;
     console.log(sql);
     return await queryDb(sql);
@@ -29,9 +30,10 @@ export async function insertSquareSentences(author_id, sentences, thoughts) {
 */
 export async function getAllSquareSentences() {
     const sql = `
-    SELECT square.*, user.nick_name, user.avator_url
-    FROM square INNER JOIN user
+    SELECT square.*, user.nick_name, user.avator_url, book_info.*
+    FROM (square INNER JOIN user) LEFT JOIN book_info
     ON user.user_id = square.author_user_id
+    AND square.isbn = book_info.isbn
     ;
     `;
     let square_record = await queryDb(sql);
