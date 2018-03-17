@@ -19,11 +19,22 @@ export async function getSquareSenteces(ctx) {
  * @param {Context} ctx
  */
 export async function postSquareSentences(ctx) {
-    await insertSquareSentences(getUserID(ctx), ctx.paramData.body.sentences.join('#')
+    await insertSquareSentences(getUserID(ctx), prepareSentences(ctx)
                                 , ctx.paramData.body.thoughts, ctx.paramData.body.isbn);
     sendData(ctx, {}, Status.OK);
 }
-
+/**
+ * 去除分享到广场中的句子中的#号
+ * 因为我使用#号分割
+ * @param {Context} ctx 
+ */
+function prepareSentences(ctx) {
+    sentences = ctx.paramData.body.sentences;
+    for (let i = 0; i < sentences.length; ++i) {
+        sentences[i] = sentences[i].replace('#', '');
+    }
+    return sentences.join('#');
+}
 /**
  * 点赞
  * @param {Context} ctx

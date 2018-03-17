@@ -34,6 +34,7 @@ export async function getAllSquareSentences() {
     FROM (square INNER JOIN user) LEFT JOIN book_info
     ON user.user_id = square.author_user_id
     AND square.isbn = book_info.isbn
+    ORDER BY square.add_time
     ;
     `;
     let square_record = await queryDb(sql);
