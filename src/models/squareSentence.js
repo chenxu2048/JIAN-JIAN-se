@@ -33,7 +33,7 @@ export async function getAllSquareSentences() {
     SELECT square.*, user.nick_name, user.avator_url, book_info.*
     FROM (square LEFT JOIN user ON user.user_id = square.author_user_id)
     INNER JOIN book_info
-    AND square.isbn = book_info.isbn
+    ON square.isbn = book_info.isbn
     ORDER BY square.add_time
     ;
     `;
