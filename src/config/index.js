@@ -13,7 +13,7 @@ export const port = config.port;
 export const host = config.host || '127.0.0.1';
 export const session = config.session;
 export const wechat = config.wechatAuth;
-
+export const youdao = config.youdaoOCRAuth;
 /** @return {typeof development} */
 function getConfig() {
   const map = { development, production };
