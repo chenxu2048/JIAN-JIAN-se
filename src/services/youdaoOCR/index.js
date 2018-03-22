@@ -19,8 +19,9 @@ const url = youdao.url.http;
  */
 function getSign(appKey, img, salt, appSecret) {
     let hash = crypto.createHash('md5');
-    hash.update([appKey, img, salt, appSecret].join(''));
-    return hash.digest('hex').toUpperCase();
+    // hash.update([appKey, img, salt, appSecret].join(''));
+    hash.update(appKey + img + salt + appSecret)
+    return hash.digest('hex').slice(0, 32).toUpperCase();
 }
 
 /**
@@ -29,23 +30,25 @@ function getSign(appKey, img, salt, appSecret) {
  */
 export async function OCR(image) {
     let imageEncoded = encodeImage(image);
-    let salt = Math.floor(Math.random() * 65535) + 1;
+    // let salt = Math.floor(Math.random() * 65535) + 1;
+    let salt = Date.now();
     let sign = getSign(appKey, imageEncoded, salt, appSecret);
     let body = {
         img: imageEncoded,
         langType: 'zh-en',
-        detectType: '10012',
+        detectType: '10011',
         imageType: '1',
         appKey: appKey,
         salt: salt,
         sign: sign,
         docType: 'json'
     };
-    // body = URLEncoodeObj(body);
+    body = URLEncoodeObj(body);
     try {
-        console.log(JSON.stringify(body));
-        let response = await got(url, {body: JSON.stringify(body)});
-        return JSON.parse(response.body);
+        let response = await got("111.230.135.232:5000/profile", {body: body, json: true,
+                                method: 'POST'});
+        // return JSON.parse(response.body);
+        return response.body;
     } catch (err) {
         console.log(`ERROR::OCR::GOT: ${err}`);
     }
