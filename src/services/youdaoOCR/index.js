@@ -45,7 +45,7 @@ export async function OCR(image) {
     };
     body = URLEncoodeObj(body);
     try {
-        let response = await got("111.230.135.232:5000/profile", {body: body, json: true,
+        let response = await got(url, {body: body, json: true,
                                 method: 'POST'});
         // return JSON.parse(response.body);
         return response.body;
