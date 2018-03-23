@@ -21,6 +21,7 @@ export async function OCR(ctx, next) {
         let sentence = resolveOCRResult(result);
         sendData(ctx, sentence.join(' ')); 
     } catch(error) {
+        console.log(error);
         throw new SoftError(Status.UNKNOWN_ERROR);
     }
 }
