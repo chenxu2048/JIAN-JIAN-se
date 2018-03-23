@@ -15,9 +15,9 @@ export async function OCR(ctx, next) {
         youdao.config({appKey: youdaoConfig.appId, appSecret : youdaoConfig.appSecret});
         let img = ctx.req.files[0].buffer.toString('Base64');
         let result = await youdao.ocr({img : img});
-        if (result.ErrorCode != 0) {
-            throw new SoftError(Status.UNKNOWN_ERROR, 'API ERROR');
-        }
+        // if (result.ErrorCode != 0) {
+        //     throw new SoftError(Status.UNKNOWN_ERROR, 'API ERROR');
+        // }
         let sentence = resolveOCRResult(result);
         sendData(ctx, sentence.join(' ')); 
     } catch(error) {
