@@ -15,8 +15,21 @@ export async function OCR(ctx, next) {
         youdao.config({appKey: youdaoConfig.appId, appSecret : youdaoConfig.appSecret});
         let img = ctx.req.files[0].buffer.toString('Base64');
         let result = await youdao.ocr({img : img});
-        sendData(ctx, result);    
+        let sentence = resolveOCRResult(result);
+        sendData(ctx, sentence.join(' ')); 
     } catch(error) {
-        console.log("ERROR::CATCH");
+        console.log(`ERROR::CATCH::${error}`);
+        sendData(ctx, error);
     }
+}
+
+function resolveOCRResult(result) {
+    let sentence = new Array();
+    let regions = result.Result.regions;
+    for (let i in regions) {
+        for (let j in regions[i].lines) {
+            sentence.push(regions[i].lines[j].text);
+        }
+    }
+    return sentence;
 }

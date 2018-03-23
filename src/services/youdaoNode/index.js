@@ -4,7 +4,7 @@ import qs from 'querystring';
 import i2bp from './imgUrl2Base64';
 
 const TRANS_API_PATH = 'https://openapi.youdao.com/api';
-const OCR_API_PATH = 'https://openapi.youdao.com/ocrapi';
+const OCR_API_PATH = 'http://openapi.youdao.com/ocrapi';
 
 const generateSign = (content, salt, appKey, appSecret) => {
 	const md5 = crypto.createHash('md5');
@@ -54,7 +54,7 @@ class Youdao {
 		const query = {
 			imageType: '1',
 			docType: 'json',
-			detectType: '10011',
+			detectType: '10012',
 			img: imgBase64,
 			appKey,
 			langType,
