@@ -29,8 +29,7 @@ export async function postSquareSentences(ctx) {
  * @param {Context} ctx 
  */
 function prepareSentences(ctx) {
-    console.log(ctx.paramData.body);
-    sentences = ctx.paramData.body.sentences;
+    let sentences = ctx.paramData.body.sentences;
     for (let i = 0; i < sentences.length; ++i) {
         sentences[i] = sentences[i].replace('#', '');
     }
