@@ -19,7 +19,7 @@ export async function OCR(ctx, next) {
         //     throw new SoftError(Status.UNKNOWN_ERROR, 'API ERROR');
         // }
         let sentence = resolveOCRResult(result);
-        sendData(ctx, sentence.join(' ')); 
+        sendData(ctx, {content : sentence.join(' ')});
     } catch(error) {
         console.log(error);
         throw new SoftError(Status.UNKNOWN_ERROR);
