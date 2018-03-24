@@ -7,6 +7,7 @@ import userRoute from './user';
 import bookInfoRoute from './bookInfo';
 import sentenceRoute from './sentence';
 import squareSentenceRoute from './squareSentence';
+import commentRouter from './comment';
 import bookRoute from './book';
 import OCRRoute from './OCR';
 /**
@@ -34,6 +35,8 @@ export default function route(app) {
   root.use(sentenceRoute);
   // 广场管理路由
   root.use(squareSentenceRoute);
+  // 评论路由
+  root.use(commentRouter);
   // 图书信息路由
   root.use(bookInfoRoute);
   // OCR路由
