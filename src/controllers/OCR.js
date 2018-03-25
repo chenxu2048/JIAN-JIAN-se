@@ -28,6 +28,7 @@ export async function OCR(ctx, next) {
 
 function resolveOCRResult(result) {
     let sentence = new Array();
+    console.log(result);
     let regions = result.Result.regions;
     for (let i in regions) {
         for (let j in regions[i].lines) {
