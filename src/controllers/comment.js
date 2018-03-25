@@ -22,6 +22,6 @@ export async function addComment(ctx) {
  * @param {Context} ctx 
  */
 export async function getComment(ctx) {
-    let result = await retriveCommentBySquareId(ctx.paramData.body.squareId);
+    let result = await retriveCommentBySquareId(ctx.paramData.query.squareId);
     sendData(ctx, result);
 }

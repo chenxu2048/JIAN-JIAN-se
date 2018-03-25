@@ -84,5 +84,7 @@ export async function handleError(ctx, e) {
  * @param {Context} ctx 
  */
 export function getUserID(ctx) {
+  // for test
+  return 1;
   return ctx.session.user.user_id;
 }

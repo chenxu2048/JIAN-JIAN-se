@@ -5,5 +5,5 @@ const router = new Router();
 export default router.routes();
 
 router.route('/comment')
-    .get(addComment)
-    .post(getComment);
+    .get(getComment)
+    .post(addComment);
