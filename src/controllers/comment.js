@@ -8,10 +8,11 @@ import { sendData, getUserID, Status } from "../utils";
  */
 export async function addComment(ctx) {
     try {
-        addCommentBySquareId(ctx.paramData.body.squareId, getUserID(ctx)
+        await addCommentBySquareId(ctx.paramData.body.squareId, getUserID(ctx)
                             , ctx.paramData.body.comment);
         sendData(ctx, {}, Status.OK);
     } catch (error) {
+        sendData(ctx, {}, Status.INTERNAL_ERROR);
         console.log(`ADD::COMMENT::ERROR::`);
         console.log(error);
     } 
