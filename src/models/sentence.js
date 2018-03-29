@@ -1,4 +1,4 @@
-import { queryDb } from "../services/mysql";
+import { queryDb, transaction } from "../services/mysql";
 import book from "../routers/book";
 
 /**
@@ -52,7 +52,7 @@ export async function insertSentenceByISBN(ISBN, user_id, content, thought) {
  * @author 吴博文
  */
 export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
-    console.log(typeof num);    
+    console.log(typeof num);
     const sql = `
     SELECT sentence.content, sentence.thought, sentence.sentence_id FROM
     book INNER JOIN sentence
@@ -81,4 +81,74 @@ export async function removeSentence(sentence_id, user_id) {
     AND book.user_id = ?;
     `;
     return await queryDb(sql, [sentence_id, user_id]);
+}
+
+/**
+ * 从广场上批量摘抄
+ * @param {Number} user_id 用户id
+ * @param {Number} square_id 摘抄的广场id
+ */
+export async function addBulkSentences(user_id, square_id) {
+
+    return transaction(addBulkSentencesImpl);
+    /**
+     * 批量摘抄，事务中完成
+     * @param {Connection} conn
+     */
+    async function addBulkSentencesImpl(conn) {
+        const addBooks = `
+            INSERT IGNORE
+            INTO book(user_id, isbn)
+                SELECT DISTINCT
+                    ? AS user_id,
+                    B.isbn AS isbn
+                FROM
+                    square AS SQ
+                    INNER JOIN square_sentence AS SS
+                        ON SQ.square_id = SS.square_id
+                    INNER JOIN sentence AS S
+                        ON SS.sentence_id = S.sentence_id
+                    INNER JOIN book AS B
+                        ON S.book_id = B.book_id
+                WHERE
+                    SQ.square_id = ?
+                    AND SQ.author_user_id != ?
+                ORDER BY B.isbn
+            ;
+        `;
+        await queryDb(addBooks, [user_id, square_id, user_id], conn);
+        const addSentences = `
+            INSERT
+            INTO sentence(book_id, content, thought)
+                SELECT
+                    OB.book_id AS book_id,
+                    OS.content AS content,
+                    OS.thought AS thought
+                FROM (
+                    SELECT
+                        B.isbn AS isbn,
+                        S.content AS content,
+                        S.thought AS thought
+                    FROM
+                        square AS SQ
+                        INNER JOIN square_sentence AS SS
+                            ON SQ.square_id = SS.square_id
+                        INNER JOIN sentence AS S
+                            ON SS.sentence_id = S.sentence_id
+                        INNER JOIN book AS B
+                            ON B.book_id = S.book_id
+                    WHERE
+                        SQ.square_id = ?
+                        AND SQ.author_user_id != ?
+                        AND B.user_id = ?
+                    ) AS OS
+                    INNER JOIN book AS OB
+                        ON OS.isbn = OB.isbn
+                WHERE
+                    OB.user_id = ?
+                ORDER BY OB.book_id
+            ;
+        `;
+        await queryDb(addSentences, [square_id, user_id, user_id, user_id], conn);
+    }
 }

@@ -1,4 +1,4 @@
-import { retriveCommentBySquareId, addCommentBySquareId } from "../models/comment";
+import * as CommentModel from "../models/comment";
 import { sendData, getUserID, Status } from "../utils";
 
 /**
@@ -7,15 +7,10 @@ import { sendData, getUserID, Status } from "../utils";
  * @author 吴博文
  */
 export async function addComment(ctx) {
-    try {
-        await addCommentBySquareId(ctx.paramData.body.squareId, getUserID(ctx)
-                            , ctx.paramData.body.comment);
-        sendData(ctx, {}, Status.OK);
-    } catch (error) {
-        sendData(ctx, {}, Status.INTERNAL_ERROR);
-        console.log(`ADD::COMMENT::ERROR::`);
-        console.log(error);
-    } 
+    const { squareId, comment } = ctx.paramData.body;
+    const { user_id } = ctx.paramData.session;
+    await CommentModel.addCommentBySquareId(squareId, user_id, comment);
+    sendData(ctx, {}, Status.OK);
 }
 
 /**
@@ -23,6 +18,7 @@ export async function addComment(ctx) {
  * @param {Context} ctx 
  */
 export async function getComment(ctx) {
-    let result = await retriveCommentBySquareId(ctx.paramData.query.squareId);
+    const { squareId } = ctx.paramData.body;
+    const result = await CommentModel.retriveCommentBySquareId(squareId);
     sendData(ctx, result);
 }

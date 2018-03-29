@@ -1,4 +1,4 @@
-import { insertSquareSentences, getAllSquareSentences } from "../models/squareSentence";
+import * as SuqareSentenceModel from "../models/squareSentence";
 import { getUserID, sendData, Status } from "../utils";
 
 /**
@@ -6,12 +6,8 @@ import { getUserID, sendData, Status } from "../utils";
  * @param {Context} ctx
  */
 export async function getSquareSenteces(ctx) {
-    const result = await getAllSquareSentences();
-    for (let i = 0; i < result.length; ++i) {
-        result[i].sentences = result[i].sentence.split('#');
-        delete result[i].sentence;
-    }
-    sendData(ctx, result, Status.OK);
+    const result = await SuqareSentenceModel.getAllSquareSentences();
+    sendData(ctx, result);
 }
 
 /**
@@ -19,9 +15,11 @@ export async function getSquareSenteces(ctx) {
  * @param {Context} ctx
  */
 export async function postSquareSentences(ctx) {
-    await insertSquareSentences(getUserID(ctx), prepareSentences(ctx)
-                                , ctx.paramData.body.thoughts, ctx.paramData.body.isbn);
-    sendData(ctx, {}, Status.OK);
+    const { user_id } = ctx.paramData.session;
+    const { isbn, thoughts, sentence_ids } = ctx.paramData.body;
+
+    await SuqareSentenceModel.insertSquareSentences(getUserID(ctx), sentence_ids, thoughts, isbn);
+    sendData(ctx, {});
 }
 /**
  * 去除分享到广场中的句子中的#号
@@ -40,5 +38,8 @@ function prepareSentences(ctx) {
  * @param {Context} ctx
  */
 export async function putSquareSentences(ctx) {
-    
+    const { user_id } = ctx.paramData.session;
+    const { square_id } = ctx.paramData.body;
+    await SuqareSentenceModel.addZan(square_id, user_id);
+    sendData(ctx, {});
 }
