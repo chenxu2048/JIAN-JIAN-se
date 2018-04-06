@@ -75,3 +75,17 @@ export async function retrieveDriftingById(drifting_id) {
   `;
   return queryDb(sql, [drifting_id]);
 }
+
+/**
+ * 获取所有的漂流信息
+ * 按需加载应该怎么做？
+ */
+export async function retrieveAllDrifting() {
+  const sql = `
+    SELECT *
+    FROM drifting
+    ORDER BY create_at DESC
+    ;
+  `;
+  return queryDb(sql, []);
+}

@@ -71,3 +71,8 @@ export async function updateDriftingContent(ctx) {
   const update = changedRows > 0;
   sendData(ctx, { update, success });
 }
+
+export async function getAllDrifting(ctx) {
+  const result = await DriftingModel.getAllDrifting();
+  sendData(ctx, {result});
+}
