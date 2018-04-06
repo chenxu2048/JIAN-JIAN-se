@@ -18,7 +18,7 @@ export async function addComment(ctx) {
  * @param {Context} ctx 
  */
 export async function getComment(ctx) {
-    const { squareId } = ctx.paramData.body;
+    const { squareId } = ctx.query.body;
     const result = await CommentModel.retriveCommentBySquareId(squareId);
     sendData(ctx, result);
 }
