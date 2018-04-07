@@ -21,10 +21,17 @@ export async function createDrifting(user_id, isbn, content) {
   const sql = `
     INSERT
     INTO drifting(user_id, isbn, content)
-    VALUES(?, ?, ?)
+      SELECT
+        ? AS user_id,
+        isbn,
+        ? AS content
+      FROM
+        book_info AS B
+      WHERE
+        B.isbn = ?
     ;
   `;
-  return queryDb(sql, [user_id, isbn, content]);
+  return queryDb(sql, [user_id, content, isbn]);
 }
 
 export async function updateContent(drifting_id, user_id, content) {
