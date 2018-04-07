@@ -9,9 +9,9 @@ export default DriftingRtr.routes();
 //   DriftingCtrl.getMyDrifting
 // );
 
-// DriftingRtr.param('drifting_id', DriftingCtrl.fetchDriftingId);
+DriftingRtr.param('drifting_id', DriftingCtrl.fetchDriftingId);
 
-DriftingRtr.route('/driftings')
+DriftingRtr.route('/driftings/:drifting_id')
   .get(DriftingCtrl.getAllDrifting)
   .post(DriftingCtrl.createDritfing)
   .put(DriftingCtrl.updateDriftingContent)

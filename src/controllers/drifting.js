@@ -10,6 +10,8 @@ import { sendData, SoftError, Status } from '../utils';
 export async function fetchDriftingId(ctx, next, drifting_id) {
   const [drifting] = await DriftingModel.retrieveDriftingById(drifting_id);
   if (!drifting) throw new SoftError(Status.BAD_REQUEST, '不存在此漂流');
+  // 我不确定是否这样fetch参数
+  ctx.paramData.drifting_id = drifting_id;
   return next();
 }
 
@@ -38,8 +40,18 @@ export async function getBookDritfing(ctx) {
  * @param {Context} ctx
  */
 export async function dropBookDritfing(ctx) {
-  const { drifting_id } = ctx.paramData;
-  const { user_id } = ctx.paramData.session;
+  // const { drifting_id } = ctx.paramData;
+  // const { user_id } = ctx.paramData.session;
+  /**
+   * Edited by 吴博文
+   */
+  const {
+    drifting_id,
+    session : {
+      user : {user_id}
+    }
+  } = ctx.paramData;
+  console.log(ctx.paramData);
   const { affectedRows } = await DriftingModel.removeDrifting(drifting_id, user_id);
   const success = affectedRows >= 1;
   sendData(ctx, { success });
@@ -60,10 +72,11 @@ export async function createDritfing(ctx) {
 
 export async function updateDriftingContent(ctx) {
   const {
-    session: { user_id },
+    session: { user : {user_id} },
     body: { content } = {},
-    drifting_id,
+    drifting_id
   } = ctx.paramData;
+  console.log(`${drifting_id}`);
   const {
     affectedRows,
     changedRows,
