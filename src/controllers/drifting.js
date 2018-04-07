@@ -51,7 +51,6 @@ export async function dropBookDritfing(ctx) {
       user : {user_id}
     }
   } = ctx.paramData;
-  console.log(ctx.paramData);
   const { affectedRows } = await DriftingModel.removeDrifting(drifting_id, user_id);
   const success = affectedRows >= 1;
   sendData(ctx, { success });
@@ -64,7 +63,6 @@ export async function dropBookDritfing(ctx) {
  */
 export async function createDritfing(ctx) {
   const { user_id } = ctx.paramData.session.user;
-  console.log(user_id);
   const { isbn, content } = ctx.paramData.body;
   const { insertId: drifting_id } = await DriftingModel.createDrifting(user_id, isbn, content);
   sendData(ctx, { drifting_id });
@@ -76,7 +74,6 @@ export async function updateDriftingContent(ctx) {
     body: { content } = {},
     drifting_id
   } = ctx.paramData;
-  console.log(`${drifting_id}`);
   const {
     affectedRows,
     changedRows,

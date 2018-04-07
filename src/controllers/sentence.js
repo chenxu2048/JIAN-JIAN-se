@@ -19,7 +19,6 @@ export async function postSentence(ctx, next) {
  */
 export async function getSentences(ctx, next) {
     const result = await retriveSentencesByISBN(ctx.paramData.query.isbn, getUserID(ctx));
-    console.log(result);
     sendData(ctx, result);
 }
 

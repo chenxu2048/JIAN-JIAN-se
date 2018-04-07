@@ -21,20 +21,17 @@ export async function OCR(ctx, next) {
         let sentence = resolveOCRResult(result);
         sendData(ctx, {content : sentence.join(' ')});
     } catch(error) {
-        console.log(error);
         throw new SoftError(Status.UNKNOWN_ERROR);
     }
 }
 
 function resolveOCRResult(result) {
     let sentence = new Array();
-    console.log(result);
     let regions = result.Result.regions;
     for (let i in regions) {
         for (let j in regions[i].lines) {
             sentence.push(regions[i].lines[j].text);
         }
     }
-    console.log(sentence);
     return sentence;
 }

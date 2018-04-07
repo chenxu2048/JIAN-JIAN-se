@@ -9,7 +9,6 @@ import { SoftError, Status } from "../utils";
 export async function getBookInfo(ISBN) {
     // 在数据库中查找
     const result = await getBookInfoFromDb(ISBN);
-    console.log(result);
     // 如果没有，去豆瓣api获取
     if (result.length == 0) {
         const queryResult = await resolveISBN(ISBN);
@@ -55,7 +54,6 @@ export async function makeBookInfoExist(isbn) {
         SELECT * from book_info WHERE ?;
     `;
     const result = await queryDb(sql, {isbn});
-    console.log(`makeBookInfoExist${result}`);
     if (result.length == 0) {
         const queryResult = await resolveISBN(isbn);
         if (queryResult === undefined) {

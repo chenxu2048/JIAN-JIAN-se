@@ -50,6 +50,5 @@ export async function retrieveBooks(user_id) {
     WHERE book.user_id = ?;
     `;
     const result = await queryDb(sql, [user_id]);
-    console.log(result);
     return result;
 }
