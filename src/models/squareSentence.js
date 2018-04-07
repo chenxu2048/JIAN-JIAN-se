@@ -26,18 +26,18 @@ export async function insertSquareSentences(author_id, sentences, thoughts, isbn
                 INTO square
                 SET ?;
         `;
-        const { insertId } = await queryDb(sql, { author_user_id: author_id, isbn }, conn);
+        const { insertId } = await queryDb(sql, { author_user_id: author_id, isbn ,thoughts}, conn);
         const addSentences = `
         INSERT
-            INTO square_sentence
+            INTO square_sentence(square_id, sentence_id)
             VALUES ?;
         `;
-        function *getSentenceMap() {
-            for (let i of sentences) {
-                yield [insertId, i];
-            }
+
+        const values = [];
+        for (let i of sentences) {
+            values.push([insertId, i]);
         }
-        await queryDb(addSentences, [getSentenceMap()], conn);
+        await queryDb(addSentences, [values], conn);
     }
     // const sql = `
     //     INSERT INTO square
