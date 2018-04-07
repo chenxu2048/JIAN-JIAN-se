@@ -12,7 +12,9 @@ export default DriftingRtr.routes();
 DriftingRtr.param('drifting_id', DriftingCtrl.fetchDriftingId);
 
 DriftingRtr.route('/driftings/:drifting_id')
-  .get(DriftingCtrl.getAllDrifting)
-  .post(DriftingCtrl.createDritfing)
   .put(DriftingCtrl.updateDriftingContent)
   .delete(DriftingCtrl.dropBookDritfing);
+
+DriftingRtr.route('/driftings')
+  .get(DriftingCtrl.getAllDrifting)
+  .post(DriftingCtrl.createDritfing);

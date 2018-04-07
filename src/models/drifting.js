@@ -98,9 +98,18 @@ export async function retrieveDriftingById(drifting_id) {
  */
 export async function retrieveAllDrifting() {
   const sql = `
-    SELECT *
-    FROM drifting
-    ORDER BY create_at DESC
+    SELECT
+      book_info.*,
+      drifting.drifting_id,
+      drifting.content,
+      user.nick_name,
+      user.avator_url
+    FROM
+      (drifting LEFT JOIN book_info
+      ON drifting.isbn = book_info.isbn)
+        LEFT JOIN user
+        ON drifting.user_id = user.user_id
+    ORDER BY drifting.create_at DESC
     ;
   `;
   return queryDb(sql, []);
