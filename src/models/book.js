@@ -41,7 +41,7 @@ export async function removeBook(isbn, user_id) {
 export async function retrieveBooks(user_id) {
     // 获取图书列表以及图书信息
     const sql = `
-    SELECT book_info.*, drifting.drifting_id
+    SELECT book_info.*, drifting.drifting_id, drifting.content as drifting_content
     FROM (book LEFT JOIN book_info
             ON book.isbn=book_info.isbn)
         LEFT JOIN drifting
