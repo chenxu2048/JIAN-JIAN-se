@@ -1,21 +1,30 @@
 import { queryDb } from '../services/mysql';
 
 export async function createDrifting(user_id, isbn, content) {
+  // const sql = `
+  //   INSERT
+  //   INTO drifting(user_id, isbn, content)
+  //     SELECT
+  //       user_id,
+  //       isbn,
+  //       ? AS content
+  //     FROM
+  //       book AS B
+  //     WHERE
+  //       B.user_id = ?
+  //       AND B.isbn = ?
+  //   ;
+  // `;
+  /**
+   * Edit by 吴博文
+   */
   const sql = `
     INSERT
-    INTO drifting(user_id, isbn)
-      SELECT
-        user_id,
-        isbn,
-        ? AS content
-      FROM
-        book AS B
-      WHERE
-        B.user_id = ?
-        AND B.isbn = ?
+    INTO drifting(user_id, isbn, content)
+    VALUES(?, ?, ?)
     ;
   `;
-  return queryDb(sql, [content, user_id, isbn]);
+  return queryDb(sql, [user_id, isbn, content]);
 }
 
 export async function updateContent(drifting_id, user_id, content) {

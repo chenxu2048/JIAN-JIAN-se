@@ -51,7 +51,8 @@ export async function dropBookDritfing(ctx) {
  * @param {Context} ctx
  */
 export async function createDritfing(ctx) {
-  const { user_id } = ctx.paramData.session;
+  const { user_id } = ctx.paramData.session.user;
+  console.log(user_id);
   const { isbn, content } = ctx.paramData.body;
   const { insertId: drifting_id } = await DriftingModel.createDrifting(user_id, isbn, content);
   sendData(ctx, { drifting_id });
@@ -73,6 +74,6 @@ export async function updateDriftingContent(ctx) {
 }
 
 export async function getAllDrifting(ctx) {
-  const result = await DriftingModel.getAllDrifting();
+  const result = await DriftingModel.retrieveAllDrifting();
   sendData(ctx, {result});
 }
