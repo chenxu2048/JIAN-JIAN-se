@@ -87,7 +87,7 @@ export async function getAllSquareSentences() {
     let square_record = await queryDb(sql);
     return square_record.map((record) => {
         try {
-            record.sentences = JSON.stringify(record.sentences);
+            record.sentences = JSON.parse(record.sentences);
         } catch (e) {}
         return record;
     });
