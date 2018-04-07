@@ -10,6 +10,8 @@ import squareSentenceRoute from './squareSentence';
 import commentRouter from './comment';
 import bookRoute from './book';
 import OCRRoute from './OCR';
+import DriftingRtr from './drifting';
+
 /**
  * 导出根路由
  * @param {Koa} app
@@ -41,6 +43,8 @@ export default function route(app) {
   root.use(bookInfoRoute);
   // OCR路由
   root.use(OCRRoute);
+  // 漂流路由
+  root.use(DriftingRtr);
   
   app.use(root.routes(false));
 }
