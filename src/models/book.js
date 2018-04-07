@@ -33,6 +33,7 @@ export async function removeBook(isbn, user_id) {
 
 /**
  * 获取某一用户书架上的书
+ * 以及这本书是否已经漂流过
  * @param {String(13)} isbn
  * @param {int} user_id
  * @author 吴博文
@@ -40,9 +41,12 @@ export async function removeBook(isbn, user_id) {
 export async function retrieveBooks(user_id) {
     // 获取图书列表以及图书信息
     const sql = `
-    SELECT book_info.*
-    FROM book LEFT JOIN book_info
-    ON book.isbn=book_info.isbn
+    SELECT book_info.*, drifting.drifting_id
+    FROM (book LEFT JOIN book_info
+            ON book.isbn=book_info.isbn)
+        LEFT JOIN drifting
+        ON book_info.isbn = drifting.isbn
+            AND book.user_id = drifting.user_id
     WHERE book.user_id = ?;
     `;
     const result = await queryDb(sql, [user_id]);
