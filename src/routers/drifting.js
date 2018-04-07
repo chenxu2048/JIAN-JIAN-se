@@ -2,7 +2,7 @@ import KoaRouter from 'koa-express-router';
 import * as DriftingCtrl from '../controllers/drifting';
 
 const DriftingRtr = new KoaRouter({ prefix: '/driftings' });
-export default DriftingRtr;
+export default DriftingRtr.routes();
 
 DriftingRtr.get(
   '/',
