@@ -158,3 +158,13 @@ export async function pickSentences(square_id, user_id) {
     `
     return await queryDb(sql, [square_id, user_id]);
 }
+
+export async function retriveSquareById(squareId) {
+    const sql = `
+        SELECT
+            *
+        FROM square
+        WHERE square_id = ?;
+    `;
+    return queryDb(sql, [squareId]);
+}

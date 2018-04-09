@@ -1,5 +1,7 @@
-import {insertSentenceByISBN, retriveSentencesByISBN, removeSentence} from '../models/sentence';
-import { sendData, Status, getUserID } from '../utils';
+import {insertSentenceByISBN, retriveSentencesByISBN, removeSentence, addBulkSentences} from '../models/sentence';
+import { sendData, Status, getUserID, SoftError } from '../utils';
+import { retriveSquareById } from '../models/squareSentence';
+import { STATUS_CODES } from 'http';
 
 /**
  * 添加一条书评
@@ -32,4 +34,23 @@ export async function deleteSentences(ctx) {
         await removeSentence(ctx.paramData.body.sentence_id[i], getUserID(ctx));
     }
     sendData(ctx, {}, Status.OK);
+}
+
+/**
+ * 获取路径中的广场Id
+ * @param {Context} ctx
+ */
+export async function fetchSquareId(ctx, next, id) {
+    const [result] = await retriveSquareById(id);
+    if (!result) {
+        throw new SoftError(Status.NOT_FOUND, "当前动态不存在", STATUS_CODES.NOT_FOUND);
+    }
+    ctx.paramData.squareId = id;
+    return next();
+}
+
+export async function pickSentenceFromSquare(ctx) {
+    const { squareId } = ctx.paramData;
+    await addBulkSentences(getUserID(ctx), squareId);
+    sendData(ctx, {});
 }
