@@ -12,7 +12,6 @@ export async function insertSentenceByBookId(book_id, content) {
     INSERT INTO sentence (book_id, content, add_time) VALUES (?, ?, NOW())
     `;
     const result = await queryDb(sql, [book_id, content]);
-    console.log(`Insert Sentence ${result}`);
 }
 
 /**
@@ -41,7 +40,6 @@ export async function insertSentenceByISBN(ISBN, user_id, content, thought) {
     (book_id, content, thought)
     VALUES (${book_id}, '${content}', '${thought}');
     `;
-    console.log(sql);
     await queryDb(sql);
 }
 /**
@@ -52,7 +50,6 @@ export async function insertSentenceByISBN(ISBN, user_id, content, thought) {
  * @author 吴博文
  */
 export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
-    console.log(typeof num);
     const sql = `
     SELECT sentence.content, sentence.thought, sentence.sentence_id FROM
     book INNER JOIN sentence
@@ -60,9 +57,7 @@ export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
     WHERE book.isbn = ? AND book.user_id = ?
     LIMIT ${num};
     `;
-    console.log(sql);
     const result = await queryDb(sql, [ISBN, user_id]);
-    console.log(result);
     return result;
 }
 

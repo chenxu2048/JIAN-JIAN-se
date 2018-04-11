@@ -8,7 +8,9 @@ import { sendData, getUserID, Status } from "../utils";
  */
 export async function addComment(ctx) {
     const { squareId, comment } = ctx.paramData.body;
-    const { user_id } = ctx.paramData.session;
+    const {
+        user: {user_id}
+    } = ctx.paramData.session;
     await CommentModel.addCommentBySquareId(squareId, user_id, comment);
     sendData(ctx, {}, Status.OK);
 }
@@ -18,7 +20,7 @@ export async function addComment(ctx) {
  * @param {Context} ctx 
  */
 export async function getComment(ctx) {
-    const { squareId } = ctx.paramData.body;
+    const { squareId } = ctx.paramData.query;
     const result = await CommentModel.retriveCommentBySquareId(squareId);
     sendData(ctx, result);
 }

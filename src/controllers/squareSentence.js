@@ -15,7 +15,9 @@ export async function getSquareSenteces(ctx) {
  * @param {Context} ctx
  */
 export async function postSquareSentences(ctx) {
-    const { user_id } = ctx.paramData.session;
+    const {
+        user: {user_id}
+    } = ctx.paramData.session;
     const { isbn, thoughts, sentence_ids } = ctx.paramData.body;
 
     await SuqareSentenceModel.insertSquareSentences(getUserID(ctx), sentence_ids, thoughts, isbn);
