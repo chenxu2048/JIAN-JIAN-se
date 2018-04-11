@@ -144,7 +144,7 @@ export async function pickSentences(square_id, user_id) {
             S.sentence_id AS sentence_id,
             S.content AS content,
             S.thought AS thought,
-            S.isbn
+            SQ.isbn AS isbn
         FROM
             square AS SQ
             INNER JOIN square_sentence AS SS

@@ -105,11 +105,11 @@ export async function addBulkSentences(user_id, square_id) {
                 FROM
                     square AS SQ
                     INNER JOIN square_sentence AS SS
-                        ON SQ.square_id = SS.square_id
+                        USING(square_id)
                     INNER JOIN sentence AS S
-                        ON SS.sentence_id = S.sentence_id
+                        USING(sentence_id)
                     INNER JOIN book AS B
-                        ON S.book_id = B.book_id
+                        USING(book_id)
                 WHERE
                     SQ.square_id = ?
                     AND SQ.author_user_id != ?
@@ -126,29 +126,26 @@ export async function addBulkSentences(user_id, square_id) {
                     OS.thought AS thought
                 FROM (
                     SELECT
-                        B.isbn AS isbn,
+                        SQ.isbn AS isbn,
                         S.content AS content,
                         S.thought AS thought
                     FROM
                         square AS SQ
                         INNER JOIN square_sentence AS SS
-                            ON SQ.square_id = SS.square_id
+                            USING(square_id)
                         INNER JOIN sentence AS S
-                            ON SS.sentence_id = S.sentence_id
-                        INNER JOIN book AS B
-                            ON B.book_id = S.book_id
+                            USING(sentence_id)
                     WHERE
                         SQ.square_id = ?
                         AND SQ.author_user_id != ?
-                        AND B.user_id = ?
                     ) AS OS
                     INNER JOIN book AS OB
-                        ON OS.isbn = OB.isbn
+                        USING(isbn)
                 WHERE
                     OB.user_id = ?
                 ORDER BY OB.book_id
             ;
         `;
-        await queryDb(addSentences, [square_id, user_id, user_id, user_id], conn);
+        await queryDb(addSentences, [square_id, user_id, user_id], conn);
     }
 }
