@@ -168,3 +168,54 @@ export async function retriveSquareById(squareId) {
     `;
     return queryDb(sql, [squareId]);
 }
+
+export async function insertZanRecord(square_id, zan_user_id) {
+    const sql = `
+        INSERT IGNORE
+        INTO zan_record
+        SET ?;
+    `;
+    await queryDb(sql, {square_id, zan_user_id});
+}
+
+export async function removeZanRecord(square_id, zan_user_id) {
+    const sql = `
+        DELETE IGNORE
+        FROM
+            zan_record
+        WHERE
+            ?;
+    `;
+    await queryDb(sql, {square_id, zan_user_id});
+}
+
+
+/**
+ * 获取某条动态的赞的个数
+ * @param {number} square_id 动态id
+ */
+export async function getZanNum(square_id) {
+    const sql = `
+        SELECT COUNT(*)
+        FROM
+            zan_record
+        WHERE
+            ?;
+    `;
+    return await queryDb(sql, {square_id});
+}
+
+/**
+ * 根据给定条件查找点赞记录
+ */
+export async function retriveZanRecord(square_id, zan_user_id) {
+    const sql = `
+        SELECT
+            *
+        FROM
+            zan_record
+        WHERE
+            ?;
+    `;
+    return await queryDb(sql, {square_id, zan_user_id});
+}
