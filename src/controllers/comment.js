@@ -1,4 +1,5 @@
 import * as CommentModel from "../models/comment";
+import * as SquareSentenceModel from "../models/squareSentence";
 import { sendData, getUserID, Status } from "../utils";
 
 /**
@@ -18,10 +19,13 @@ export async function addComment(ctx) {
 
 /**
  * 获取某个广场的评论信息
+ * 以及点赞等信息
  * @param {Context} ctx 
  */
 export async function getComment(ctx) {
     const { squareId } = ctx.paramData.query;
-    const result = await CommentModel.retriveCommentBySquareId(squareId);
-    sendData(ctx, result);
+    const comments = await CommentModel.retriveCommentBySquareId(squareId);
+    const [{num : zanNum}] = await SquareSentenceModel.getZanNum(squareId);
+    const {length} = await SquareSentenceModel.retriveZanRecord(squareId, getUserID(ctx));
+    sendData(ctx, {comments, zanNum, whetherZanByMe : length > 0});
 }

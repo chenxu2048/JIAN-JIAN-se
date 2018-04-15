@@ -129,13 +129,13 @@ export async function insertCommentBySquareId(square_id, content, user_id) {
  * @param {Number} square_id 广场id
  * @param {Number} user_id 用户id
  */
-export async function addZan(square_id, user_id) {
+export async function addZan(square_id, zan_user_id) {
     const sql = `
-        INSERT
+        INSERT IGNORE
             INTO zan_record
         SET ?;
     `;
-    return await queryDb(sql, { square_id, user_id });
+    return await queryDb(sql, { square_id, zan_user_id });
 }
 
 export async function pickSentences(square_id, user_id) {
@@ -173,9 +173,11 @@ export async function insertZanRecord(square_id, zan_user_id) {
     const sql = `
         INSERT IGNORE
         INTO zan_record
-        SET ?;
+            (square_id, zan_user_id)
+        VALUES
+            (?, ?);
     `;
-    await queryDb(sql, {square_id, zan_user_id});
+    await queryDb(sql, [square_id, zan_user_id]);
 }
 
 export async function removeZanRecord(square_id, zan_user_id) {
@@ -184,9 +186,9 @@ export async function removeZanRecord(square_id, zan_user_id) {
         FROM
             zan_record
         WHERE
-            ?;
+            square_id = ? AND zan_user_id = ?;
     `;
-    await queryDb(sql, {square_id, zan_user_id});
+    return await queryDb(sql, [square_id, zan_user_id]);
 }
 
 
@@ -196,7 +198,7 @@ export async function removeZanRecord(square_id, zan_user_id) {
  */
 export async function getZanNum(square_id) {
     const sql = `
-        SELECT COUNT(*)
+        SELECT COUNT(*) as num
         FROM
             zan_record
         WHERE
@@ -215,7 +217,7 @@ export async function retriveZanRecord(square_id, zan_user_id) {
         FROM
             zan_record
         WHERE
-            ?;
+            square_id=? AND zan_user_id=?;
     `;
-    return await queryDb(sql, {square_id, zan_user_id});
+    return await queryDb(sql, [square_id, zan_user_id]);
 }

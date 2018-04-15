@@ -1,4 +1,4 @@
-import * as SuqareSentenceModel from "../models/squareSentence";
+import * as SquareSentenceModel from "../models/squareSentence";
 import { getUserID, sendData, Status } from "../utils";
 
 /**
@@ -6,7 +6,7 @@ import { getUserID, sendData, Status } from "../utils";
  * @param {Context} ctx
  */
 export async function getSquareSenteces(ctx) {
-    const result = await SuqareSentenceModel.getAllSquareSentences();
+    const result = await SquareSentenceModel.getAllSquareSentences();
     sendData(ctx, result);
 }
 
@@ -20,7 +20,7 @@ export async function postSquareSentences(ctx) {
     } = ctx.paramData.session;
     const { isbn, thoughts, sentence_ids } = ctx.paramData.body;
 
-    await SuqareSentenceModel.insertSquareSentences(getUserID(ctx), sentence_ids, thoughts, isbn);
+    await SquareSentenceModel.insertSquareSentences(getUserID(ctx), sentence_ids, thoughts, isbn);
     sendData(ctx, {});
 }
 /**
@@ -42,6 +42,6 @@ function prepareSentences(ctx) {
 export async function putSquareSentences(ctx) {
     const { user_id } = ctx.paramData.session;
     const { square_id } = ctx.paramData.body;
-    await SuqareSentenceModel.addZan(square_id, user_id);
+    await SquareSentenceModel.addZan(square_id, user_id);
     sendData(ctx, {});
 }

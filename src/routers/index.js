@@ -11,6 +11,7 @@ import commentRouter from './comment';
 import bookRoute from './book';
 import OCRRoute from './OCR';
 import DriftingRtr from './drifting';
+import ZanRtr from './zan';
 
 /**
  * 导出根路由
@@ -45,6 +46,8 @@ export default function route(app) {
   root.use(OCRRoute);
   // 漂流路由
   root.use(DriftingRtr);
+  // 点赞路由
+  root.use(ZanRtr);
   
   app.use(root.routes(false));
 }
