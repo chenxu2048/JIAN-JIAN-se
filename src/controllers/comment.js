@@ -7,7 +7,8 @@ import { sendData, getUserID, Status } from "../utils";
  * @author 吴博文
  */
 export async function addComment(ctx) {
-    const { squareId, comment } = ctx.paramData.body;
+    const { comment } = ctx.paramData.body;
+    const { squareId } = ctx.paramData.query;
     const {
         user: {user_id}
     } = ctx.paramData.session;
