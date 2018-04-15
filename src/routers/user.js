@@ -7,3 +7,6 @@ export default router.routes();
 router.route('/login')
   .get(userCtrl.isLogin)
   .post(userCtrl.login);
+
+router.route('/self')
+  .get(userCtrl.getSelf);

@@ -27,3 +27,11 @@ export async function createUser(open_id, nick_name, avator_url) {
   const [user] = await retrieveUserByOpenId(open_id);
   return user;
 }
+
+export async function getUserByUserId(user_id) {
+  const sql = `
+    SELECT * FROM user
+      WHERE user_id = ?;
+  `;
+  return queryDb(sql, [user_id]);
+}

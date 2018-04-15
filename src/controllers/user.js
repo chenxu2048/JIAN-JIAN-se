@@ -1,6 +1,6 @@
 import * as User from '../models/user';
 import * as WeChServ from '../services/wechat';
-import { sendData, Status } from '../utils';
+import { sendData, Status, getUserID } from '../utils';
 /**
  * 用户登录
  * @param {Context} ctx
@@ -31,4 +31,9 @@ export async function isLogin(ctx) {
     return sendData(ctx, {}, Status.OK, '已登录');
   }
   return sendData(ctx, {}, Status.NOT_AUTHORIZED, '未登录');
+}
+
+export async function getSelf(ctx) {
+  const [result] = await User.getUserByUserId(getUserID(ctx));
+  sendData(ctx, {self : result});
 }

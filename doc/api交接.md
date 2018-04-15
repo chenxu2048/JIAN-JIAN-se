@@ -2,6 +2,10 @@
 
 # 更新日志
 
+**2018-04-16/00:26**
+
+* 添加获取自身用户信息的接口
+
 **2018-04-15/21:09**
 
 * 点赞 取消点赞
@@ -211,7 +215,7 @@ Method:JSON
 
 
 
-## 广场相关
+# 广场相关
 
 Url:127.0.0.1:3000/api/square_sentences
 
@@ -251,7 +255,7 @@ Method:GET
 }
 ```
 
-#### 摘走
+## 摘走
 
 url : /api/sentence/{square_id}
 
@@ -283,9 +287,9 @@ Attention: **不要随便添加 id选项**
 
 
 
-## 点赞相关
+# 点赞相关
 
-### 点赞
+## 点赞
 
 url : localhost:3000/api/zan?squareId=?
 
@@ -317,7 +321,7 @@ method : POST
 }
 ```
 
-### 取消点赞
+## 取消点赞
 
 url : localhost:3000/api/zan?squareId=?
 
@@ -350,3 +354,30 @@ method : DELETE
 ```
 
 ### 
+
+# 用户相关
+
+## 获取自身用户信息
+
+url : /api/user/self
+
+Method : GET
+
+返回信息：
+
+```json
+{
+    "status": "OK",
+    "msg": "Success",
+    "data": {
+        "self": {
+            "user_id": 1,
+            "nick_name": "Bob Wu",
+            "avator_url": "https://wx.qlogo.cn/mmopen/vi_32/g2EeSDdHytSzM2vLngbEeYibzrWPpSkMekuC3yc5Tzibz88SIkzbbu7Gibqr1MrJic2kV9NU3GTViceQiax3dfiadj9Mw/0",
+            "open_id": "oWxUG0THs46X8hZFoXzw83Ry2nik"
+        }
+    },
+    "time": "2018-04-15T16:26:18.589Z"
+}
+```
+
