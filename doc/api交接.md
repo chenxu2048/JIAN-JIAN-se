@@ -374,7 +374,7 @@ Method : GET
             "user_id": 1,
             "nick_name": "Bob Wu",
             "avator_url": "https://wx.qlogo.cn/mmopen/vi_32/g2EeSDdHytSzM2vLngbEeYibzrWPpSkMekuC3yc5Tzibz88SIkzbbu7Gibqr1MrJic2kV9NU3GTViceQiax3dfiadj9Mw/0",
-            "open_id": "oWxUG0THs46X8hZFoXzw83Ry2nik"
+            "open_id": "******************"
         }
     },
     "time": "2018-04-15T16:26:18.589Z"
