@@ -10,7 +10,7 @@ import { STATUS_CODES } from 'http';
  */
 export async function postSentence(ctx, next) {
     await insertSentenceByISBN(ctx.paramData.query.isbn, getUserID(ctx),
-                                filterEmoji(ctx.paramData.body.content),
+                                ctx.paramData.body.content,
                                 ctx.paramData.body.thought);
     sendData(ctx, Status.OK);
 }

@@ -14,7 +14,7 @@ export async function login(ctx) {
   const { openid, sessionKey } = await WeChServ.getSessionKey(code);
   let [user] = await User.retrieveUserByOpenId(openid);
   if (user === undefined) {
-    user = await User.createUser(openid, filterEmoji(nickname), avatar);
+    user = await User.createUser(openid, nickname, avatar);
   }
   user.sessionKey = sessionKey;
   ctx.session.user = user;
