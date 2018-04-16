@@ -2,6 +2,9 @@
 
 # 更新日志
 
+**2018-04-16/11:30**
+* 广场动态返回点赞数目
+
 **2018-04-16/00:26**
 
 * 添加获取自身用户信息的接口
@@ -248,7 +251,9 @@ Method:GET
                     "thought": "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
                     "sentence_id": 11
                 }
-            ]
+            ],
+            "comments": "[{\"content\": \"卓君修改\", \"user_id\": 4, \"nickname\": \"陈序\", \"avator_url\": \"https://wx.qlogo.cn/mmopen/vi_32/TA6YyG1Ir8dW1a6PxX9vvbxJgExDL2GJ7gLblVxEYicw6fTiatibtNLImTPcHMT5bgCLE9AjEUZe4jc1X7VAEicUZQ/0\"}, {\"content\": \"卓君修改\", \"user_id\": 4, \"nickname\": \"陈序\", \"avator_u",
+            "zan_num": 1
         }
     ],
     "time": "2018-04-08T02:46:27.669Z"
