@@ -87,6 +87,6 @@ export function getUserID(ctx) {
   return ctx.session.user.user_id;
 }
 
-function filterEmoji(name) {
+export function filterEmoji(name) {
   return name.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
 }
