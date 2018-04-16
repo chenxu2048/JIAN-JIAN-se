@@ -14,7 +14,7 @@ export async function login(ctx) {
   const { openid, sessionKey } = await WeChServ.getSessionKey(code);
   let [user] = await User.retrieveUserByOpenId(openid);
   if (user === undefined) {
-    user = await User.createUser(openid, nickname, avatar);
+    user = await User.createUser(openid, filterEmoji(nickname), avatar);
   }
   user.sessionKey = sessionKey;
   ctx.session.user = user;
@@ -36,4 +36,8 @@ export async function isLogin(ctx) {
 export async function getSelf(ctx) {
   const [result] = await User.getUserByUserId(getUserID(ctx));
   sendData(ctx, {self : result});
+}
+
+function filterEmoji(name) {
+  return name.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
 }
