@@ -77,7 +77,27 @@ export async function getAllSquareSentences() {
                 SEPARATOR ", "
             ),
             "]"
-        ) AS sentences
+        ) AS sentences,
+        CONCAT(
+            "[",
+            (SELECT
+                group_concat(
+                    JSON_OBJECT(
+                        "content", comment.content,
+                        "user_id", user.user_id,
+                        "avator_url", user.avator_url,
+                        "nickname", user.nick_name
+                    )
+                    separator ", "
+                )
+            FROM
+                comment LEFT JOIN user AS comment_user
+            ON
+                comment.comment_user_id = comment_user.user_id
+            WHERE comment.square_square_id = square.square_id
+            ),
+            "]"
+        ) AS comments
     FROM
         square
         NATURAL JOIN square_sentence
@@ -95,6 +115,7 @@ export async function getAllSquareSentences() {
     return square_record.map((record) => {
         try {
             record.sentences = JSON.parse(record.sentences);
+            // record.comments  = JSON.parse(record.comments);
         } catch (e) {}
         return record;
     });
