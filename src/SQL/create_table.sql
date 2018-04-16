@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`book` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `uk_isbn_user`
-    UNIQUE KEY(`user`, `isbn`))
+    UNIQUE KEY(`user_id`, `isbn`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 110
 DEFAULT CHARACTER SET = utf8;
