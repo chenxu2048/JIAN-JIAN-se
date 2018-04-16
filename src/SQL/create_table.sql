@@ -68,7 +68,9 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`book` (
     FOREIGN KEY (`user_id`)
     REFERENCES `JIAN-JIAN`.`user` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `uk_isbn_user`
+    UNIQUE KEY(`user`, `isbn`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 110
 DEFAULT CHARACTER SET = utf8;
@@ -116,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`comment` (
   CONSTRAINT `fk_comment_square1`
     FOREIGN KEY (`square_square_id`)
     REFERENCES `JIAN-JIAN`.`square` (`square_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comment_user1`
     FOREIGN KEY (`comment_user_id`)
@@ -190,12 +192,12 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`square_sentence` (
   CONSTRAINT `fk_square_sentence_1`
     FOREIGN KEY (`sentence_id`)
     REFERENCES `JIAN-JIAN`.`sentence` (`sentence_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_square_sentence_2`
     FOREIGN KEY (`square_id`)
     REFERENCES `JIAN-JIAN`.`square` (`square_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 24
@@ -216,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`zan_record` (
   CONSTRAINT `fk_zan_record_square1`
     FOREIGN KEY (`square_id`)
     REFERENCES `JIAN-JIAN`.`square` (`square_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_zan_record_user1`
     FOREIGN KEY (`zan_user_id`)
