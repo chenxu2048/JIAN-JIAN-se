@@ -1,6 +1,6 @@
 import * as CommentModel from "../models/comment";
 import * as SquareSentenceModel from "../models/squareSentence";
-import { sendData, getUserID, Status } from "../utils";
+import { sendData, getUserID, Status, SoftError } from "../utils";
 
 /**
  * 增加评论
@@ -24,6 +24,9 @@ export async function addComment(ctx) {
  */
 export async function getComment(ctx) {
     const { squareId } = ctx.paramData.query;
+    if (!squareId) {
+        throw new SoftError("请检查参数是否完整");
+    }
     const comments = await CommentModel.retriveCommentBySquareId(squareId);
     const [{num : zanNum}] = await SquareSentenceModel.getZanNum(squareId);
     const {length} = await SquareSentenceModel.retriveZanRecord(squareId, getUserID(ctx));

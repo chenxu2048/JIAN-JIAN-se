@@ -10,7 +10,8 @@ export async function retriveCommentBySquareId(squareId) {
     SELECT * FROM
     comment LEFT JOIN user
     ON comment.comment_user_id = user.user_id
-    WHERE comment.square_square_id = ${squareId};
+    WHERE comment.square_square_id = ${squareId}
+    ORDER BY comment.add_time DESC;
     `;
     return await queryDb(sql);
 }
