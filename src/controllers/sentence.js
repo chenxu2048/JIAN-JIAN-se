@@ -1,5 +1,5 @@
 import {insertSentenceByISBN, retriveSentencesByISBN, removeSentence, addBulkSentences} from '../models/sentence';
-import { sendData, Status, getUserID, SoftError } from '../utils';
+import { sendData, Status, getUserID, SoftError, filterEmoji } from '../utils';
 import { retriveSquareById } from '../models/squareSentence';
 import { STATUS_CODES } from 'http';
 
@@ -10,7 +10,7 @@ import { STATUS_CODES } from 'http';
  */
 export async function postSentence(ctx, next) {
     await insertSentenceByISBN(ctx.paramData.query.isbn, getUserID(ctx),
-                                ctx.paramData.body.content,
+                                filterEmoji(ctx.paramData.body.content),
                                 ctx.paramData.body.thought);
     sendData(ctx, Status.OK);
 }

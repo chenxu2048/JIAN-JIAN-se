@@ -1,6 +1,6 @@
 import * as User from '../models/user';
 import * as WeChServ from '../services/wechat';
-import { sendData, Status, getUserID } from '../utils';
+import { sendData, Status, getUserID, filterEmoji } from '../utils';
 /**
  * 用户登录
  * @param {Context} ctx
@@ -36,8 +36,4 @@ export async function isLogin(ctx) {
 export async function getSelf(ctx) {
   const [result] = await User.getUserByUserId(getUserID(ctx));
   sendData(ctx, {self : result});
-}
-
-function filterEmoji(name) {
-  return name.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
 }
