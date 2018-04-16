@@ -52,7 +52,7 @@ export async function insertSquareSentences(author_id, sentences, thoughts, isbn
  * 获取世界频道
  * @author 吴博文
 */
-export async function getAllSquareSentences() {
+export async function getAllSquareSentences(user_id) {
     const sql = `
      SELECT
         square.*,
@@ -66,6 +66,14 @@ export async function getAllSquareSentences() {
             WHERE
                 zan_record.square_id = square.square_id
         ) AS zan_num,
+        (
+            SELECT COUNT(*) > 0
+            FROM
+                zan_record
+            WHERE
+                zan_record.square_id = square.square_id
+                AND zan_record.zan_user_id = ${user_id}
+        ) AS whetherZanByMe,
         CONCAT(
             "[",
             GROUP_CONCAT(

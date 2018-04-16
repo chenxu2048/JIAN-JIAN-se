@@ -6,7 +6,7 @@ import { getUserID, sendData, Status } from "../utils";
  * @param {Context} ctx
  */
 export async function getSquareSenteces(ctx) {
-    const result = await SquareSentenceModel.getAllSquareSentences();
+    const result = await SquareSentenceModel.getAllSquareSentences(getUserID(ctx));
     sendData(ctx, result);
 }
 
