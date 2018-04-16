@@ -54,11 +54,18 @@ export async function insertSquareSentences(author_id, sentences, thoughts, isbn
 */
 export async function getAllSquareSentences() {
     const sql = `
-    SELECT
+     SELECT
         square.*,
         user.nick_name,
         user.avator_url,
         book_info.*,
+        (
+            SELECT COUNT(*)
+            FROM
+                zan_record
+            WHERE
+                zan_record.square_id = square.square_id
+        ) AS zan_num,
         CONCAT(
             "[",
             GROUP_CONCAT(
