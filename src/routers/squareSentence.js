@@ -7,4 +7,5 @@ export default router.routes();
 router.route('/square_sentences')
       .get(squareSenterceCtrl.getSquareSenteces)
       .post(squareSenterceCtrl.postSquareSentences)
-      .put(squareSenterceCtrl.putSquareSentences);
+      .put(squareSenterceCtrl.putSquareSentences)
+      .delete(squareSenterceCtrl.deleteSquareSentence);

@@ -2,6 +2,10 @@
 
 # 更新日志
 
+**2018-04-16/14:23**
+* 广场动态返回前五十条
+* 删除动态
+
 **2018-04-16/11:30**
 * 广场动态返回点赞数目
 
@@ -290,7 +294,34 @@ Attention: **不要随便添加 id选项**
 }
 ```
 
+## 删除动态
 
+url : /api/square_sentences?square_id=?
+method : DELETE
+
+成功调用:
+```json
+{
+    "status": "OK",
+    "msg": "Success",
+    "data": {
+        "success": true
+    },
+    "time": "2018-04-16T07:21:07.662Z"
+}
+```
+
+失败调用：
+```json
+{
+    "status": "OK",
+    "msg": "Success",
+    "data": {
+        "success": false
+    },
+    "time": "2018-04-16T07:21:29.753Z"
+}
+```
 
 # 点赞相关
 

@@ -261,3 +261,17 @@ export async function retriveZanRecord(square_id, zan_user_id) {
     `;
     return await queryDb(sql, [square_id, zan_user_id]);
 }
+
+/**
+ * 删除某位用户发表的一条动态
+ */
+export async function removeSquareById(square_id, author_user_id) {
+    const sql = `
+        DELETE IGNORE
+        FROM
+            square
+        WHERE
+            square_id = ? AND author_user_id = ?;
+    `;
+    return await queryDb(sql, [square_id, author_user_id]);
+}

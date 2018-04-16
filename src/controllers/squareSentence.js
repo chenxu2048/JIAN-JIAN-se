@@ -45,3 +45,14 @@ export async function putSquareSentences(ctx) {
     await SquareSentenceModel.addZan(square_id, user_id);
     sendData(ctx, {});
 }
+
+/**
+ * 删除动态
+ * @param {Context} ctx
+ */
+export async function deleteSquareSentence(ctx) {
+    const { square_id } = ctx.paramData.query;
+    const { affectedRows } = await SquareSentenceModel.removeSquareById(square_id, getUserID(ctx));
+    const success = affectedRows >= 1;
+    sendData(ctx, {success});
+}
