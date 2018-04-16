@@ -117,6 +117,7 @@ export async function getAllSquareSentences(user_id) {
             ON square.isbn = book_info.isbn
     GROUP BY square.square_id
     ORDER BY square.add_time DESC
+    LIMIT 0,50
     ;
     `;
     let square_record = await queryDb(sql);
@@ -124,6 +125,9 @@ export async function getAllSquareSentences(user_id) {
         try {
             record.sentences = JSON.parse(record.sentences);
             // record.comments  = JSON.parse(record.comments);
+            if (record.comments) {
+                delete record.comments;
+            }
         } catch (e) {}
         return record;
     });
