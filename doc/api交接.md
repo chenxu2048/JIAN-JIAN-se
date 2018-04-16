@@ -124,33 +124,37 @@ get
 
 ```json
 {
+    {
     "status": "OK",
     "msg": "Success",
     "data": {
         "result": [
             {
-                "isbn": "9787535672100",
-                "title": "写给大家的西方美术史",
-                "author": "蒋勋",
-                "title_page_image": "https://img3.doubanio.com/lpic/s28101992.jpg",
-                "drifting_id": 6,
-                "content": null,
-                "nick_name": "罗沦",
-                "avator_url": "https://wx.qlogo.cn/mmopen/vi_32/VscoDFHXorE80U6WzmG3iaP55hJx0h5zHgBJ3JXRwAgNvjF3eS480ibdwIicTUzyD4n9IfPPkhooZtkpS7oasl0TA/0"
+                "isbn": "9787111453789",
+                "title": "计算机网络（第6版）",
+                "author": "[美] James F.Kurose;[美] Keith W.Ross",
+                "title_page_image": "https://img3.doubanio.com/lpic/s27667093.jpg",
+                "drifting_id": 16,
+                "content": "我是渣渣辉",
+                "nick_name": "Bob Wu",
+                "avator_url": "https://wx.qlogo.cn/mmopen/vi_32/g2EeSDdHytSzM2vLngbEeYibzrWPpSkMekuC3yc5Tzibz88SIkzbbu7Gibqr1MrJic2kV9NU3GTViceQiax3dfiadj9Mw/0",
+                "whetherDriftByMe": true
             },
             {
                 "isbn": "9787111453789",
                 "title": "计算机网络（第6版）",
                 "author": "[美] James F.Kurose;[美] Keith W.Ross",
                 "title_page_image": "https://img3.doubanio.com/lpic/s27667093.jpg",
-                "drifting_id": 4,
-                "content": "4534534534534534534534534534534534532134535435432312312321321313132132132131",
+                "drifting_id": 15,
+                "content": "我是渣渣辉",
                 "nick_name": "Bob Wu",
-                "avator_url": "https://wx.qlogo.cn/mmopen/vi_32/g2EeSDdHytSzM2vLngbEeYibzrWPpSkMekuC3yc5Tzibz88SIkzbbu7Gibqr1MrJic2kV9NU3GTViceQiax3dfiadj9Mw/0"
+                "avator_url": "https://wx.qlogo.cn/mmopen/vi_32/g2EeSDdHytSzM2vLngbEeYibzrWPpSkMekuC3yc5Tzibz88SIkzbbu7Gibqr1MrJic2kV9NU3GTViceQiax3dfiadj9Mw/0",
+                "whetherDriftByMe": true
             }
         ]
     },
-    "time": "2018-04-08T02:47:30.143Z"
+    "time": "2018-04-16T07:47:06.559Z"
+}
 }
 ```
 
