@@ -1,5 +1,5 @@
 import * as DriftingModel from '../models/drifting';
-import { sendData, SoftError, Status } from '../utils';
+import { sendData, SoftError, Status, getUserID } from '../utils';
 
 /**
  * 获取路由中的drifting_id
@@ -84,6 +84,12 @@ export async function updateDriftingContent(ctx) {
 }
 
 export async function getAllDrifting(ctx) {
-  const result = await DriftingModel.retrieveAllDrifting();
+  const data = await DriftingModel.retrieveAllDrifting();
+  let id = getUserID(ctx);
+  let result = data.map((item) => {
+    item.whetherDriftByMe = item.user_id == id;
+    delete item.user_id;
+    return item;
+  });
   sendData(ctx, {result});
 }

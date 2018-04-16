@@ -103,7 +103,8 @@ export async function retrieveAllDrifting() {
       drifting.drifting_id,
       drifting.content,
       user.nick_name,
-      user.avator_url
+      user.avator_url,
+      user.user_id
     FROM
       (drifting LEFT JOIN book_info
       ON drifting.isbn = book_info.isbn)
