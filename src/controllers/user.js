@@ -1,6 +1,7 @@
 import * as User from '../models/user';
 import * as WeChServ from '../services/wechat';
 import { sendData, Status, getUserID, filterEmoji } from '../utils';
+import { open } from 'fs';
 /**
  * 用户登录
  * @param {Context} ctx
@@ -15,6 +16,8 @@ export async function login(ctx) {
   let [user] = await User.retrieveUserByOpenId(openid);
   if (user === undefined) {
     user = await User.createUser(openid, nickname, avatar);
+  } else {
+    await User.updateUserInfo(open_id, nickname, avatar);
   }
   user.sessionKey = sessionKey;
   ctx.session.user = user;

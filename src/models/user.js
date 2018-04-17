@@ -1,4 +1,5 @@
 import { queryDb } from '../services/mysql';
+import { open } from 'fs';
 
 /**
  * 通过open_id获取用户信息
@@ -34,4 +35,17 @@ export async function getUserByUserId(user_id) {
       WHERE user_id = ?;
   `;
   return queryDb(sql, [user_id]);
+}
+
+export async function updateUserInfo(open_id, nick_name, avator_url) {
+  const sql = `
+    UPDATE IGNORE
+      user
+    SET
+      user.nick_name=${nick_name}
+      , user.avator_url=${avator_url}
+    WHERE
+      user.open_id=${open_id};
+  `;
+  await queryDb(sql);
 }
