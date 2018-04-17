@@ -32,7 +32,7 @@ export async function logRequest(ctx, next) {
     originalUrl,
   } = ctx;
 
-  const { extMsg } = ctx.paramData;
+  const { extMsg } = ctx.paramData || {};
 
   const urlText = originalUrl && `- ${decodeURIComponent(originalUrl)}` || '';
   const statusText = status && `- ${status}` || '';
