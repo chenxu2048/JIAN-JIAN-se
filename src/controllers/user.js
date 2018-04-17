@@ -17,7 +17,7 @@ export async function login(ctx) {
   if (user === undefined) {
     user = await User.createUser(openid, nickname, avatar);
   } else {
-    await User.updateUserInfo(open_id, nickname, avatar);
+    await User.updateUserInfo(openid, nickname, avatar);
   }
   user.sessionKey = sessionKey;
   ctx.session.user = user;
