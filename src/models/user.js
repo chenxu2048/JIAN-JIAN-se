@@ -42,10 +42,9 @@ export async function updateUserInfo(open_id, nick_name, avator_url) {
     UPDATE IGNORE
       user
     SET
-      user.nick_name=${nick_name}
-      , user.avator_url=${avator_url}
+      user.nick_name="${nick_name}", user.avator_url="${avator_url}"
     WHERE
-      user.open_id=${open_id};
+      user.open_id="${open_id}";
   `;
   await queryDb(sql);
 }
