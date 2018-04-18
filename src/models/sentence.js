@@ -55,7 +55,8 @@ export async function retriveSentencesByISBN(ISBN, user_id, num = 1000) {
     book INNER JOIN sentence
     ON book.book_id = sentence.book_id
     WHERE book.isbn = ? AND book.user_id = ?
-    LIMIT ${num};
+    LIMIT ${num}
+    ORDER BY sentence.add_time DESC;
     `;
     const result = await queryDb(sql, [ISBN, user_id]);
     return result;
