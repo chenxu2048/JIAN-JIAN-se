@@ -2,6 +2,8 @@ import {OCR as OCRService} from '../services/youdaoOCR';
 import { sendData, SoftError, Status } from '../utils';
 import youdao from '../services/youdaoNode';
 import {youdao as youdaoConfig} from '../config';
+
+const threshold = 50;
 // /**
 //  * @param {Context} ctx
 //  */
@@ -19,6 +21,9 @@ export async function OCR(ctx, next) {
         let img = ctx.req.files[0].buffer.toString('Base64');
         let {x, y, width, height} = ctx.paramData.query;
         let area_info = parseAreaInfo(x, y, width, height);
+        if (checkAreaInfo(area_info)) {
+            area_info = makeAreaLarger(area_info);
+        }
         let result = await youdao.ocr({img : img});
         let sentence = resolveOCRResult(result, area_info);
         sendData(ctx, {content : sentence.join(' ')});
@@ -94,4 +99,12 @@ function parseAreaInfo(x, y, width, height) {
         width : parseInt(width),
         height : parseInt(height)
     };
+}
+
+function makeAreaLarger(area_info) {
+    area_info.x -= threshold;
+    area_info.y -= threshold;
+    area_info.width += threshold;
+    area_info.height += threshold;
+    return area_info;
 }
