@@ -114,7 +114,7 @@ export async function addBulkSentences(user_id, square_id) {
         await queryDb(addBooks, [user_id, square_id, user_id], conn);
         const addSentences = `
             INSERT
-            INTO sentence(book_id, content, thought)
+            INTO sentence(book_id, content)
                 SELECT
                     OB.book_id AS book_id,
                     OS.content AS content
