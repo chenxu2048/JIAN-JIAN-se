@@ -117,8 +117,7 @@ export async function addBulkSentences(user_id, square_id) {
             INTO sentence(book_id, content, thought)
                 SELECT
                     OB.book_id AS book_id,
-                    OS.content AS content,
-                    OS.thought AS thought
+                    OS.content AS content
                 FROM (
                     SELECT
                         SQ.isbn AS isbn,
