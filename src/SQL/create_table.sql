@@ -17,7 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema JIAN-JIAN
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `JIAN-JIAN` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `JIAN-JIAN` DEFAULT CHARACTER SET utf8mb4 ;
 USE `JIAN-JIAN` ;
 
 -- -----------------------------------------------------
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`book_info` (
   `title_page_image` MEDIUMTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`isbn`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`user` (
   UNIQUE INDEX `open_id_UNIQUE` (`open_id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 5
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`book` (
     UNIQUE KEY(`user_id`, `isbn`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 110
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`square` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 33
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`comment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 15
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`drifting` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 15
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`sentence` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 131
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`square_sentence` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 24
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `JIAN-JIAN`.`zan_record` (
     CONSTRAINT `uk_zan_square_user`
 		UNIQUE KEY(`square_id`, `zan_user_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
