@@ -16,6 +16,9 @@ export async function getBookInfo(ISBN) {
         await insertBookInfo(queryResult.isbn, queryResult.title,
                         queryResult.author, queryResult.title_page_url);
         return queryResult;
+    } else {
+        const queryResult = await resolveISBN(ISBN);
+        return queryResult;
     }
     return result[0];
 }
