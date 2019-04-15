@@ -2,16 +2,16 @@ export default {
   port: 3000,
   host: '127.0.0.1',
   mysql: {
-    host: '119.29.146.176',
-    user: 'jian_jian',
-    password: 'jianjiandb',
+    host: '127.0.0.1',
+    user: 'root',
+    password: '123456',
     database: 'JIAN-JIAN',
-    port: '6033',
+    port: '3306',
     charset: 'utf8mb4_general_ci',
   },
   redis: {
-    host: '119.29.146.176',
-    port: '9736',
+    host: '127.0.0.1',
+    port: '6379',
     password: 'jianjian',
     db: 1,
     namespaces: {

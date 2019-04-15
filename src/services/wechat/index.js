@@ -30,5 +30,5 @@ export async function getSessionKey(js_code) {
   if (errcode !== undefined) {
     throw new SoftError(Status.BAD_REQUEST, `授权失败, ${errmsg}, ${errcode}`);
   }
-  return pick(result, 'openid', 'sessionKey');
+  return pick(result, 'openid', 'session_key');
 }
